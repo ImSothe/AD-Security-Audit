@@ -1,0 +1,6 @@
+reports/
+*-snapshot.json
+*.log
+.env*
+node_modules/
+.next/

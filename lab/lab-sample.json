@@ -1,0 +1,2968 @@
+﻿{
+    "SchemaVersion":  1,
+    "Source":  "Lab",
+    "CollectedAt":  "2026-11-20T09:00:00.0000000Z",
+    "Domain":  {
+                   "DnsRoot":  "demo-corp.lab",
+                   "NetBIOSName":  "DEMOCORP",
+                   "DomainSid":  "S-1-5-21-1111111111-2222222222-3333333333",
+                   "DomainMode":  "Windows2012R2Domain",
+                   "ForestMode":  "Windows2012R2Forest",
+                   "ForestRoot":  "demo-corp.lab",
+                   "RecycleBinEnabled":  false,
+                   "PasswordPolicy":  {
+                                          "MinPasswordLength":  7,
+                                          "MaxPasswordAgeDays":  90,
+                                          "LockoutThreshold":  0,
+                                          "ComplexityEnabled":  true,
+                                          "PasswordHistoryCount":  12,
+                                          "ReversibleEncryptionEnabled":  false
+                                      }
+               },
+    "Users":  [
+                  {
+                      "SamAccountName":  "Administrator",
+                      "DisplayName":  "Administrator",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-500",
+                      "LastLogonDate":  "2026-11-17T09:00:00.0000000Z",
+                      "WhenCreated":  "2018-12-12T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2024-05-24T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Administrator,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "Guest",
+                      "DisplayName":  "Guest",
+                      "Enabled":  false,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-501",
+                      "LastLogonDate":  null,
+                      "WhenCreated":  "2018-12-12T09:00:00.0000000Z",
+                      "PasswordLastSet":  null,
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Guest,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "krbtgt",
+                      "DisplayName":  "krbtgt",
+                      "Enabled":  false,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-502",
+                      "LastLogonDate":  null,
+                      "WhenCreated":  "2018-12-12T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2022-11-21T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=krbtgt,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "lgarcia",
+                      "DisplayName":  "Lucia Garcia",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1101",
+                      "LastLogonDate":  "2026-11-17T09:00:00.0000000Z",
+                      "WhenCreated":  "2024-08-19T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-03T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance"
+                                   ],
+                      "DistinguishedName":  "CN=Lucia Garcia,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "jfernandez",
+                      "DisplayName":  "Javier Fernandez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1102",
+                      "LastLogonDate":  "2026-10-31T09:00:00.0000000Z",
+                      "WhenCreated":  "2020-10-27T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-13T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales",
+                                       "Share_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Javier Fernandez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "mlopez",
+                      "DisplayName":  "Marta Lopez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1103",
+                      "LastLogonDate":  "2026-11-06T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-03-11T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-28T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Warehouse",
+                                       "Share_Warehouse"
+                                   ],
+                      "DistinguishedName":  "CN=Marta Lopez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "cmartinez",
+                      "DisplayName":  "Carlos Martinez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1104",
+                      "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                      "WhenCreated":  "2020-11-14T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-03T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_HR",
+                                       "Share_HR"
+                                   ],
+                      "DistinguishedName":  "CN=Carlos Martinez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "esanchez",
+                      "DisplayName":  "Elena Sanchez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1105",
+                      "LastLogonDate":  "2026-11-12T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-04-16T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-09T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Legal",
+                                       "Share_Legal"
+                                   ],
+                      "DistinguishedName":  "CN=Elena Sanchez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "dperez",
+                      "DisplayName":  "David Perez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1106",
+                      "LastLogonDate":  "2026-11-14T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-04-09T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-10T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Operations",
+                                       "Share_Operations"
+                                   ],
+                      "DistinguishedName":  "CN=David Perez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "sgomez",
+                      "DisplayName":  "Sara Gomez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1107",
+                      "LastLogonDate":  "2026-11-10T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-07-28T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-18T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance"
+                                   ],
+                      "DistinguishedName":  "CN=Sara Gomez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "pdiaz",
+                      "DisplayName":  "Pablo Diaz",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1108",
+                      "LastLogonDate":  "2026-11-02T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-12-15T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-13T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales",
+                                       "Share_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Pablo Diaz,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "lmoreno",
+                      "DisplayName":  "Laura Moreno",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1109",
+                      "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-08-20T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-12T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Warehouse",
+                                       "Share_Warehouse"
+                                   ],
+                      "DistinguishedName":  "CN=Laura Moreno,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "dalvarez",
+                      "DisplayName":  "Diego Alvarez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1110",
+                      "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-05-30T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-18T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_HR",
+                                       "Share_HR"
+                                   ],
+                      "DistinguishedName":  "CN=Diego Alvarez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "aromero",
+                      "DisplayName":  "Ana Romero",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1111",
+                      "LastLogonDate":  "2026-11-18T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-08-23T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-19T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Legal",
+                                       "Share_Legal"
+                                   ],
+                      "DistinguishedName":  "CN=Ana Romero,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "snavarro",
+                      "DisplayName":  "Sergio Navarro",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1112",
+                      "LastLogonDate":  "2026-11-04T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-11-13T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-03T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Operations",
+                                       "Share_Operations"
+                                   ],
+                      "DistinguishedName":  "CN=Sergio Navarro,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "pgarcia",
+                      "DisplayName":  "Paula Garcia",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1113",
+                      "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-10-02T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-25T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance"
+                                   ],
+                      "DistinguishedName":  "CN=Paula Garcia,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "afernandez",
+                      "DisplayName":  "Alberto Fernandez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1114",
+                      "LastLogonDate":  "2026-11-14T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-03-06T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-01T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales",
+                                       "Share_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Alberto Fernandez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "ilopez",
+                      "DisplayName":  "Irene Lopez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1115",
+                      "LastLogonDate":  "2026-11-14T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-01-24T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-12T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Warehouse",
+                                       "Share_Warehouse"
+                                   ],
+                      "DistinguishedName":  "CN=Irene Lopez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "rmartinez",
+                      "DisplayName":  "Raul Martinez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1116",
+                      "LastLogonDate":  "2026-10-31T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-07-28T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-03T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_HR",
+                                       "Share_HR"
+                                   ],
+                      "DistinguishedName":  "CN=Raul Martinez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "nsanchez",
+                      "DisplayName":  "Nuria Sanchez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1117",
+                      "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                      "WhenCreated":  "2020-05-03T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-14T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Legal",
+                                       "Share_Legal"
+                                   ],
+                      "DistinguishedName":  "CN=Nuria Sanchez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "iperez",
+                      "DisplayName":  "Ivan Perez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1118",
+                      "LastLogonDate":  "2026-11-03T09:00:00.0000000Z",
+                      "WhenCreated":  "2026-02-26T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-30T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Operations",
+                                       "Share_Operations"
+                                   ],
+                      "DistinguishedName":  "CN=Ivan Perez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "cgomez",
+                      "DisplayName":  "Cristina Gomez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1119",
+                      "LastLogonDate":  "2026-11-02T09:00:00.0000000Z",
+                      "WhenCreated":  "2024-10-10T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-06T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance"
+                                   ],
+                      "DistinguishedName":  "CN=Cristina Gomez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "hdiaz",
+                      "DisplayName":  "Hugo Diaz",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1120",
+                      "LastLogonDate":  "2026-11-18T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-12-02T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-25T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales",
+                                       "Share_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Hugo Diaz,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "bmoreno",
+                      "DisplayName":  "Beatriz Moreno",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1121",
+                      "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-05-23T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-22T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Warehouse",
+                                       "Share_Warehouse"
+                                   ],
+                      "DistinguishedName":  "CN=Beatriz Moreno,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "aalvarez",
+                      "DisplayName":  "Adrian Alvarez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1122",
+                      "LastLogonDate":  "2026-11-02T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-01-01T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-14T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_HR",
+                                       "Share_HR"
+                                   ],
+                      "DistinguishedName":  "CN=Adrian Alvarez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "rromero",
+                      "DisplayName":  "Rocio Romero",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1123",
+                      "LastLogonDate":  "2026-11-16T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-07-25T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-15T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Legal",
+                                       "Share_Legal"
+                                   ],
+                      "DistinguishedName":  "CN=Rocio Romero,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "mnavarro",
+                      "DisplayName":  "Mario Navarro",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1124",
+                      "LastLogonDate":  "2026-11-09T09:00:00.0000000Z",
+                      "WhenCreated":  "2026-01-29T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-16T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Operations",
+                                       "Share_Operations"
+                                   ],
+                      "DistinguishedName":  "CN=Mario Navarro,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "tgarcia",
+                      "DisplayName":  "Teresa Garcia",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1125",
+                      "LastLogonDate":  "2026-11-03T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-03-01T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-02T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance"
+                                   ],
+                      "DistinguishedName":  "CN=Teresa Garcia,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "ofernandez",
+                      "DisplayName":  "Oscar Fernandez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1126",
+                      "LastLogonDate":  "2026-11-12T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-08-27T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-09T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales",
+                                       "Share_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Oscar Fernandez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "slopez",
+                      "DisplayName":  "Silvia Lopez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1127",
+                      "LastLogonDate":  "2026-11-05T09:00:00.0000000Z",
+                      "WhenCreated":  "2024-08-08T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-08-28T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Warehouse",
+                                       "Share_Warehouse"
+                                   ],
+                      "DistinguishedName":  "CN=Silvia Lopez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "rmartinez",
+                      "DisplayName":  "Ruben Martinez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1128",
+                      "LastLogonDate":  "2026-11-07T09:00:00.0000000Z",
+                      "WhenCreated":  "2020-09-07T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-06T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_HR",
+                                       "Share_HR"
+                                   ],
+                      "DistinguishedName":  "CN=Ruben Martinez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "asanchez",
+                      "DisplayName":  "Alicia Sanchez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1129",
+                      "LastLogonDate":  "2026-11-01T09:00:00.0000000Z",
+                      "WhenCreated":  "2024-07-06T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-12T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Legal",
+                                       "Share_Legal"
+                                   ],
+                      "DistinguishedName":  "CN=Alicia Sanchez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "vperez",
+                      "DisplayName":  "Victor Perez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1130",
+                      "LastLogonDate":  "2026-11-05T09:00:00.0000000Z",
+                      "WhenCreated":  "2020-10-15T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-12T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Operations",
+                                       "Share_Operations"
+                                   ],
+                      "DistinguishedName":  "CN=Victor Perez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "ngomez",
+                      "DisplayName":  "Noelia Gomez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1131",
+                      "LastLogonDate":  "2026-11-06T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-05-27T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-20T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance"
+                                   ],
+                      "DistinguishedName":  "CN=Noelia Gomez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "jdiaz",
+                      "DisplayName":  "Jorge Diaz",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1132",
+                      "LastLogonDate":  "2026-10-31T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-12-05T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-11-03T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales",
+                                       "Share_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Jorge Diaz,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "pmoreno",
+                      "DisplayName":  "Patricia Moreno",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1133",
+                      "LastLogonDate":  "2026-11-02T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-12-06T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-23T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Warehouse",
+                                       "Share_Warehouse"
+                                   ],
+                      "DistinguishedName":  "CN=Patricia Moreno,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "aalvarez",
+                      "DisplayName":  "Andres Alvarez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1134",
+                      "LastLogonDate":  "2026-11-14T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-08-29T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-08-28T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_HR",
+                                       "Share_HR"
+                                   ],
+                      "DistinguishedName":  "CN=Andres Alvarez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "lromero",
+                      "DisplayName":  "Lorena Romero",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1135",
+                      "LastLogonDate":  "2026-11-04T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-03-29T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-08-31T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Legal",
+                                       "Share_Legal"
+                                   ],
+                      "DistinguishedName":  "CN=Lorena Romero,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "fnavarro",
+                      "DisplayName":  "Fernando Navarro",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1136",
+                      "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                      "WhenCreated":  "2026-03-14T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-10T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Operations",
+                                       "Share_Operations"
+                                   ],
+                      "DistinguishedName":  "CN=Fernando Navarro,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "mprieto",
+                      "DisplayName":  "Manuel Prieto",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1137",
+                      "LastLogonDate":  "2025-10-04T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-09-07T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2025-08-27T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales",
+                                       "Share_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Manuel Prieto,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "cvidal",
+                      "DisplayName":  "Carmen Vidal",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1138",
+                      "LastLogonDate":  "2026-05-16T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-10-12T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-04-04T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance",
+                                       "VPN_Users"
+                                   ],
+                      "DistinguishedName":  "CN=Carmen Vidal,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "ttorres",
+                      "DisplayName":  "Tomas Torres",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1139",
+                      "LastLogonDate":  "2026-07-10T09:00:00.0000000Z",
+                      "WhenCreated":  "2024-12-20T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-06-03T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Warehouse"
+                                   ],
+                      "DistinguishedName":  "CN=Tomas Torres,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "pruiz",
+                      "DisplayName":  "Pilar Ruiz",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1140",
+                      "LastLogonDate":  "2026-08-15T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-11-16T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-07-23T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Legal",
+                                       "Share_Legal"
+                                   ],
+                      "DistinguishedName":  "CN=Pilar Ruiz,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "test.user",
+                      "DisplayName":  "Test User",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1141",
+                      "LastLogonDate":  null,
+                      "WhenCreated":  "2025-02-18T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2025-02-18T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Test User,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "intern2025",
+                      "DisplayName":  "Intern 2025",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1142",
+                      "LastLogonDate":  null,
+                      "WhenCreated":  "2026-01-14T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-01-14T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Intern 2025,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "supplier.erp",
+                      "DisplayName":  "ERP Supplier",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1143",
+                      "LastLogonDate":  null,
+                      "WhenCreated":  "2026-08-17T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-08-17T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "VPN_Users"
+                                   ],
+                      "DistinguishedName":  "CN=ERP Supplier,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "agil",
+                      "DisplayName":  "Antonio Gil",
+                      "Enabled":  false,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1144",
+                      "LastLogonDate":  "2026-03-05T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-02-19T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-01-24T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Finance",
+                                       "Share_Finance",
+                                       "VPN_Users",
+                                       "ERP_Approvers"
+                                   ],
+                      "DistinguishedName":  "CN=Antonio Gil,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "esantos",
+                      "DisplayName":  "Eva Santos",
+                      "Enabled":  false,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1145",
+                      "LastLogonDate":  "2026-06-23T09:00:00.0000000Z",
+                      "WhenCreated":  "2024-06-03T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-06-13T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_HR",
+                                       "Share_HR",
+                                       "Payroll_RW"
+                                   ],
+                      "DistinguishedName":  "CN=Eva Santos,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "old.admin",
+                      "DisplayName":  "Old Admin",
+                      "Enabled":  false,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1146",
+                      "LastLogonDate":  "2024-12-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2019-10-08T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2024-09-11T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "Domain Admins"
+                                   ],
+                      "DistinguishedName":  "CN=Old Admin,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "rcastro",
+                      "DisplayName":  "Ramon Castro",
+                      "Enabled":  false,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1147",
+                      "LastLogonDate":  "2025-10-16T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-04-30T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2025-09-26T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Ramon Castro,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "reception",
+                      "DisplayName":  "Reception Desk",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1148",
+                      "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-12-16T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2022-03-26T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  true,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Reception Desk,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "mlopez2",
+                      "DisplayName":  "Miguel Lopez",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1149",
+                      "LastLogonDate":  "2026-11-18T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-03-30T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-11T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  true,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Sales"
+                                   ],
+                      "DistinguishedName":  "CN=Miguel Lopez,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "contractor.site",
+                      "DisplayName":  "Site Contractor",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1150",
+                      "LastLogonDate":  "2026-10-01T09:00:00.0000000Z",
+                      "WhenCreated":  "2026-05-04T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-05-04T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  "2026-10-10T09:00:00.0000000Z",
+                      "MemberOf":  [
+                                       "VPN_Users"
+                                   ],
+                      "DistinguishedName":  "CN=Site Contractor,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "svc_sql",
+                      "DisplayName":  "SQL Service",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1151",
+                      "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2021-05-30T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2022-05-15T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+                                                    "MSSQLSvc/srv-sql01.demo-corp.lab:1433",
+                                                    "MSSQLSvc/srv-sql01.demo-corp.lab"
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=SQL Service,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "svc_backup",
+                      "DisplayName":  "Backup Service",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1152",
+                      "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2020-08-03T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2023-08-08T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+                                                    "backup/srv-file01.demo-corp.lab"
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Backup Service,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "svc_scan",
+                      "DisplayName":  "Scanner SMTP",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1153",
+                      "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2023-01-20T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2023-01-30T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Scanner SMTP,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "svc_legacy",
+                      "DisplayName":  "Legacy App",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1154",
+                      "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                      "WhenCreated":  "2020-01-16T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2020-04-25T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  true,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Legacy App,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "svc_web",
+                      "DisplayName":  "Intranet Service",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1155",
+                      "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-07-08T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-21T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  true,
+                      "DelegatesTo":  [
+                                          "HTTP/srv-erp01.demo-corp.lab"
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  0,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Intranet Service,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "it.admin",
+                      "DisplayName":  "IT Admin",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1156",
+                      "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                      "WhenCreated":  "2019-06-30T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2025-03-30T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=IT Admin,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "adm.jmartin",
+                      "DisplayName":  "Jose Martin (admin)",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1157",
+                      "LastLogonDate":  "2026-11-16T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-10-16T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-21T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  true,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=Jose Martin (admin),OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "ext.itsupport",
+                      "DisplayName":  "External IT Support",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1158",
+                      "LastLogonDate":  "2026-04-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-07-04T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2022-10-12T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  true,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+
+                                   ],
+                      "DistinguishedName":  "CN=External IT Support,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "hd.paula",
+                      "DisplayName":  "Paula Helpdesk",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1159",
+                      "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                      "WhenCreated":  "2025-12-05T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-31T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "IT-Helpdesk"
+                                   ],
+                      "DistinguishedName":  "CN=Paula Helpdesk,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "hd.carlos",
+                      "DisplayName":  "Carlos Helpdesk",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1160",
+                      "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                      "WhenCreated":  "2024-09-11T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-09-06T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "IT-Helpdesk"
+                                   ],
+                      "DistinguishedName":  "CN=Carlos Helpdesk,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  },
+                  {
+                      "SamAccountName":  "jruiz",
+                      "DisplayName":  "Jaime Ruiz",
+                      "Enabled":  true,
+                      "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1161",
+                      "LastLogonDate":  "2026-11-14T09:00:00.0000000Z",
+                      "WhenCreated":  "2022-03-26T09:00:00.0000000Z",
+                      "PasswordLastSet":  "2026-10-21T09:00:00.0000000Z",
+                      "PasswordNeverExpires":  false,
+                      "PasswordNotRequired":  false,
+                      "DoesNotRequirePreAuth":  false,
+                      "ReversibleEncryption":  false,
+                      "TrustedForDelegation":  false,
+                      "TrustedToAuthForDelegation":  false,
+                      "DelegatesTo":  [
+
+                                      ],
+                      "AccountNotDelegated":  false,
+                      "ServicePrincipalNames":  [
+
+                                                ],
+                      "AdminCount":  1,
+                      "LockedOut":  false,
+                      "AccountExpires":  null,
+                      "MemberOf":  [
+                                       "GG_Operations"
+                                   ],
+                      "DistinguishedName":  "CN=Jaime Ruiz,OU=Users,OU=DemoCorp,DC=demo-corp,DC=lab"
+                  }
+              ],
+    "Computers":  [
+                      {
+                          "Name":  "DC01",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2019 Standard",
+                          "OperatingSystemVersion":  "10.0 (17763)",
+                          "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                          "WhenCreated":  "2018-12-12T09:00:00.0000000Z",
+                          "IsDomainController":  true,
+                          "TrustedForDelegation":  true,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=DC01,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "DC02",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2016 Standard",
+                          "OperatingSystemVersion":  "10.0 (14393)",
+                          "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                          "WhenCreated":  "2020-01-16T09:00:00.0000000Z",
+                          "IsDomainController":  true,
+                          "TrustedForDelegation":  true,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=DC02,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "SRV-FILE01",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2019 Standard",
+                          "OperatingSystemVersion":  "10.0 (17763)",
+                          "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                          "WhenCreated":  "2021-02-19T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=SRV-FILE01,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "SRV-SQL01",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2016 Standard",
+                          "OperatingSystemVersion":  "10.0 (14393)",
+                          "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                          "WhenCreated":  "2021-05-30T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=SRV-SQL01,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "SRV-ERP01",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2012 R2 Standard",
+                          "OperatingSystemVersion":  "6.3 (9600)",
+                          "LastLogonDate":  "2026-11-18T09:00:00.0000000Z",
+                          "WhenCreated":  "2019-10-08T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  true,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=SRV-ERP01,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "SRV-PRINT",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2008 R2 Standard",
+                          "OperatingSystemVersion":  "6.1 (7601)",
+                          "LastLogonDate":  "2026-01-23T09:00:00.0000000Z",
+                          "WhenCreated":  "2018-09-03T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=SRV-PRINT,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "SRV-WEB01",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2022 Standard",
+                          "OperatingSystemVersion":  "10.0 (20348)",
+                          "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                          "WhenCreated":  "2025-03-30T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  true,
+                          "DelegatesTo":  [
+                                              "HTTP/srv-erp01.demo-corp.lab"
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=SRV-WEB01,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "SRV-APP02",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows Server 2022 Standard",
+                          "OperatingSystemVersion":  "10.0 (20348)",
+                          "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                          "WhenCreated":  "2026-01-24T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  true,
+                          "DistinguishedName":  "CN=SRV-APP02,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-001",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-17T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-09-06T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-001,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-002",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-14T09:00:00.0000000Z",
+                          "WhenCreated":  "2026-04-02T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-002,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-003",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-17T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-08-11T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-003,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-004",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-17T09:00:00.0000000Z",
+                          "WhenCreated":  "2022-05-20T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-004,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-005",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                          "WhenCreated":  "2022-12-27T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-005,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-006",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-11T09:00:00.0000000Z",
+                          "WhenCreated":  "2020-07-25T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-006,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-007",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-09-10T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-007,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-008",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                          "WhenCreated":  "2022-07-23T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-008,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-009",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2025-05-29T09:00:00.0000000Z",
+                          "WhenCreated":  "2020-10-06T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-009,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-010",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-20T09:00:00.0000000Z",
+                          "WhenCreated":  "2021-03-24T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-010,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-011",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                          "WhenCreated":  "2021-10-05T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-011,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-012",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                          "WhenCreated":  "2025-02-11T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-012,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-013",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-09-28T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-013,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-014",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                          "WhenCreated":  "2020-02-07T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-014,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-015",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-12T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-10-01T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-015,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-016",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-18T09:00:00.0000000Z",
+                          "WhenCreated":  "2022-10-16T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-016,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-017",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-03-25T09:00:00.0000000Z",
+                          "WhenCreated":  "2024-11-14T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-017,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-018",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-16T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-05-07T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-018,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-019",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-19T09:00:00.0000000Z",
+                          "WhenCreated":  "2022-05-04T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-019,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-020",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                          "WhenCreated":  "2020-07-28T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-020,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-021",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-14T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-09-12T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-021,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-022",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (26100)",
+                          "LastLogonDate":  "2026-11-16T09:00:00.0000000Z",
+                          "WhenCreated":  "2024-04-06T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-022,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-023",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2026-11-16T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-11-20T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-023,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-024",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                          "WhenCreated":  "2024-04-06T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-024,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-025",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2026-11-18T09:00:00.0000000Z",
+                          "WhenCreated":  "2025-06-15T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-025,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-026",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2025-09-30T09:00:00.0000000Z",
+                          "WhenCreated":  "2026-01-22T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-026,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-027",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2026-11-17T09:00:00.0000000Z",
+                          "WhenCreated":  "2025-02-21T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-027,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-028",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                          "WhenCreated":  "2022-10-20T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-028,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-029",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2026-11-12T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-09-03T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-029,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-030",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 10 Pro",
+                          "OperatingSystemVersion":  "10.0 (19045)",
+                          "LastLogonDate":  "2026-11-15T09:00:00.0000000Z",
+                          "WhenCreated":  "2020-04-08T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-030,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-031",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 7 Professional",
+                          "OperatingSystemVersion":  "6.1 (7601)",
+                          "LastLogonDate":  "2025-05-02T09:00:00.0000000Z",
+                          "WhenCreated":  "2024-05-31T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-031,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-032",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 7 Professional",
+                          "OperatingSystemVersion":  "6.1 (7601)",
+                          "LastLogonDate":  "2026-11-13T09:00:00.0000000Z",
+                          "WhenCreated":  "2024-08-06T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-032,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-033",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (22631)",
+                          "LastLogonDate":  "2026-11-17T09:00:00.0000000Z",
+                          "WhenCreated":  "2024-02-17T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-033,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-034",
+                          "Enabled":  true,
+                          "OperatingSystem":  "Windows 11 Pro",
+                          "OperatingSystemVersion":  "10.0 (22631)",
+                          "LastLogonDate":  "2025-09-27T09:00:00.0000000Z",
+                          "WhenCreated":  "2023-07-14T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-034,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      },
+                      {
+                          "Name":  "PC-OLDXP",
+                          "Enabled":  false,
+                          "OperatingSystem":  "Windows XP Professional",
+                          "OperatingSystemVersion":  "5.1 (2600)",
+                          "LastLogonDate":  "2020-11-11T09:00:00.0000000Z",
+                          "WhenCreated":  "2017-04-21T09:00:00.0000000Z",
+                          "IsDomainController":  false,
+                          "TrustedForDelegation":  false,
+                          "TrustedToAuthForDelegation":  false,
+                          "DelegatesTo":  [
+
+                                          ],
+                          "HasRbcd":  false,
+                          "DistinguishedName":  "CN=PC-OLDXP,OU=Computers,OU=DemoCorp,DC=demo-corp,DC=lab"
+                      }
+                  ],
+    "PrivilegedGroups":  [
+                             {
+                                 "Key":  "DomainAdmins",
+                                 "Name":  "Domain Admins",
+                                 "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-512",
+                                 "Members":  [
+                                                 {
+                                                     "SamAccountName":  "Administrator",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-500"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "it.admin",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1156"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "adm.jmartin",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1157"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "svc_backup",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1152"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "ext.itsupport",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1158"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "old.admin",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1146"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "hd.paula",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1159"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "hd.carlos",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1160"
+                                                 }
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "EnterpriseAdmins",
+                                 "Name":  "Enterprise Admins",
+                                 "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-519",
+                                 "Members":  [
+                                                 {
+                                                     "SamAccountName":  "Administrator",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-500"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "it.admin",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1156"
+                                                 }
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "SchemaAdmins",
+                                 "Name":  "Schema Admins",
+                                 "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-518",
+                                 "Members":  [
+                                                 {
+                                                     "SamAccountName":  "Administrator",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-500"
+                                                 }
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "Administrators",
+                                 "Name":  "Administrators",
+                                 "Sid":  "S-1-5-32-544",
+                                 "Members":  [
+                                                 {
+                                                     "SamAccountName":  "Administrator",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-500"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "it.admin",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1156"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "adm.jmartin",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1157"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "svc_backup",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1152"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "ext.itsupport",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1158"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "old.admin",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1146"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "hd.paula",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1159"
+                                                 },
+                                                 {
+                                                     "SamAccountName":  "hd.carlos",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1160"
+                                                 }
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "AccountOperators",
+                                 "Name":  "Account Operators",
+                                 "Sid":  "S-1-5-32-548",
+                                 "Members":  [
+
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "ServerOperators",
+                                 "Name":  "Server Operators",
+                                 "Sid":  "S-1-5-32-549",
+                                 "Members":  [
+
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "PrintOperators",
+                                 "Name":  "Print Operators",
+                                 "Sid":  "S-1-5-32-550",
+                                 "Members":  [
+
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "BackupOperators",
+                                 "Name":  "Backup Operators",
+                                 "Sid":  "S-1-5-32-551",
+                                 "Members":  [
+                                                 {
+                                                     "SamAccountName":  "svc_backup",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-1152"
+                                                 }
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "GroupPolicyCreatorOwners",
+                                 "Name":  "Group Policy Creator Owners",
+                                 "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-520",
+                                 "Members":  [
+                                                 {
+                                                     "SamAccountName":  "Administrator",
+                                                     "ObjectClass":  "user",
+                                                     "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-500"
+                                                 }
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "KeyAdmins",
+                                 "Name":  "Key Admins",
+                                 "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-526",
+                                 "Members":  [
+
+                                             ],
+                                 "Error":  null
+                             },
+                             {
+                                 "Key":  "EnterpriseKeyAdmins",
+                                 "Name":  "Enterprise Key Admins",
+                                 "Sid":  "S-1-5-21-1111111111-2222222222-3333333333-527",
+                                 "Members":  [
+
+                                             ],
+                                 "Error":  null
+                             }
+                         ],
+    "Gpos":  [
+                 {
+                     "Id":  "{31B2F340-016D-11D2-945F-00C04FB984F9}",
+                     "DisplayName":  "Default Domain Policy",
+                     "Flags":  0,
+                     "UserVersion":  0,
+                     "ComputerVersion":  12,
+                     "EnabledLinks":  1,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2025-10-16T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{6AC1786C-016F-11D2-945F-00C04FB984F9}",
+                     "DisplayName":  "Default Domain Controllers Policy",
+                     "Flags":  0,
+                     "UserVersion":  0,
+                     "ComputerVersion":  8,
+                     "EnabledLinks":  1,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2025-10-16T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{6A279B26-9246-5CCB-35F2-76D9A6B65544}",
+                     "DisplayName":  "Drive mappings",
+                     "Flags":  1,
+                     "UserVersion":  14,
+                     "ComputerVersion":  0,
+                     "EnabledLinks":  3,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2026-09-21T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{0654BF15-ECCC-672A-B721-0E8938804A33}",
+                     "DisplayName":  "Desktop wallpaper",
+                     "Flags":  1,
+                     "UserVersion":  3,
+                     "ComputerVersion":  0,
+                     "EnabledLinks":  1,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2024-06-03T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{FAD87B0E-DAC4-B943-46BB-1A62429FE788}",
+                     "DisplayName":  "Browser hardening",
+                     "Flags":  2,
+                     "UserVersion":  0,
+                     "ComputerVersion":  9,
+                     "EnabledLinks":  1,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2026-07-23T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{123BFC4A-5AF7-3A0F-70BF-B324834124B5}",
+                     "DisplayName":  "WSUS settings",
+                     "Flags":  2,
+                     "UserVersion":  0,
+                     "ComputerVersion":  6,
+                     "EnabledLinks":  1,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2024-12-20T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{2BCA43A8-5BDD-3B7F-7B9B-BF11D2C72517}",
+                     "DisplayName":  "BitLocker workstations",
+                     "Flags":  2,
+                     "UserVersion":  0,
+                     "ComputerVersion":  4,
+                     "EnabledLinks":  1,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2026-05-04T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{3C3E863A-3744-B43B-6B9E-8905271F3604}",
+                     "DisplayName":  "Firewall baseline",
+                     "Flags":  0,
+                     "UserVersion":  0,
+                     "ComputerVersion":  11,
+                     "EnabledLinks":  2,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2026-08-22T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{FFBA6596-BBD5-EFAA-7C00-975C9AFE67A8}",
+                     "DisplayName":  "GPO test",
+                     "Flags":  0,
+                     "UserVersion":  0,
+                     "ComputerVersion":  0,
+                     "EnabledLinks":  0,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2023-04-30T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{FCE99B9A-E703-7070-0716-C03FD27A145B}",
+                     "DisplayName":  "Old - Printers 2015",
+                     "Flags":  3,
+                     "UserVersion":  7,
+                     "ComputerVersion":  0,
+                     "EnabledLinks":  0,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2018-05-26T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{6D7ABB64-260D-7F42-DB4F-C044A0DF196C}",
+                     "DisplayName":  "Copy of WSUS settings",
+                     "Flags":  2,
+                     "UserVersion":  0,
+                     "ComputerVersion":  6,
+                     "EnabledLinks":  0,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2024-02-24T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{8B6AE036-3935-AF01-F44A-F7BEFA6B1C01}",
+                     "DisplayName":  "Kiosk test",
+                     "Flags":  3,
+                     "UserVersion":  2,
+                     "ComputerVersion":  5,
+                     "EnabledLinks":  0,
+                     "DisabledLinks":  1,
+                     "WhenChanged":  "2024-09-11T09:00:00.0000000Z",
+                     "SysvolPresent":  true
+                 },
+                 {
+                     "Id":  "{DEF73BEC-FA83-749B-586A-21B3272BCF27}",
+                     "DisplayName":  "Legacy logon script",
+                     "Flags":  1,
+                     "UserVersion":  4,
+                     "ComputerVersion":  0,
+                     "EnabledLinks":  1,
+                     "DisabledLinks":  0,
+                     "WhenChanged":  "2021-05-30T09:00:00.0000000Z",
+                     "SysvolPresent":  false
+                 }
+             ],
+    "SysvolOrphans":  [
+                          "{F10853FC-8810-2B25-BACB-78C32E83846F}"
+                      ],
+    "GpoError":  null,
+    "Errors":  [
+
+               ]
+}
