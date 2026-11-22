@@ -48,7 +48,7 @@ foreach ($id in $expected.Keys) {
     Test-Case "$id is $sev with $count items" {
         Assert-Equal $sev $byId[$id].Severity "$id severity"
         Assert-Equal $count $byId[$id].Count "$id count"
-    }.GetNewClosure()
+    }
 }
 Test-Case 'planted accounts are found by name' {
     Assert-True (@($byId['ACC-02'].Items.Account) -contains 'supplier.erp') 'ghost supplier.erp missing'
