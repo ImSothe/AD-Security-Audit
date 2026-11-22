@@ -137,7 +137,7 @@ function New-ADAuditLabSnapshot {
     & $addPc @{ Name = 'SRV-APP02'; Os = 'Windows Server 2022 Standard'; Ver = '10.0 (20348)'; Logon = 0; Created = 300; HasRbcd = $true }
     for ($i = 1; $i -le 34; $i++) {
         $name = 'PC-{0:D3}' -f $i
-        if ($i -le 22) { $os = 'Windows 11 Pro'; $ver = '10.0 (26100)' }
+        if ($i -le 22) { $os = 'Windows 11 Pro'; $ver = '10.0 (26200)' }
         elseif ($i -le 30) { $os = 'Windows 10 Pro'; $ver = '10.0 (19045)' }
         elseif ($i -le 32) { $os = 'Windows 7 Professional'; $ver = '6.1 (7601)' }
         else { $os = 'Windows 11 Pro'; $ver = '10.0 (22631)' }
@@ -145,6 +145,8 @@ function New-ADAuditLabSnapshot {
         & $addPc @{ Name = $name; Os = $os; Ver = $ver; Logon = $logon; Created = $rng.Next(150, 2500) }
     }
     & $addPc @{ Name = 'PC-OLDXP'; Os = 'Windows XP Professional'; Ver = '5.1 (2600)'; Logon = 2200; Created = 3500; Enabled = $false }
+    # Long-term servicing build: still supported until 2029, must not be flagged with the rest of Windows 10.
+    & $addPc @{ Name = 'KIOSK-01'; Os = 'Windows 10 Enterprise LTSC'; Ver = '10.0 (17763)'; Logon = 0; Created = 900 }
 
     $gpo = {
         param($name, $id, $flags, $user, $computer, $links, $disabledLinks, $changed, $sysvol)

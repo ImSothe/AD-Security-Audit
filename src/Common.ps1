@@ -50,6 +50,14 @@ function New-AuditFinding {
     }
 }
 
+# Output file names include the NetBIOS name read from the snapshot: never let it carry a path.
+function Get-SafeFileNamePart {
+    param([string]$Value)
+    $safe = ([string]$Value -replace '[^A-Za-z0-9_-]', '_').Trim('_')
+    if (-not $safe) { return 'DOMAIN' }
+    return $safe.Substring(0, [math]::Min(40, $safe.Length))
+}
+
 function ConvertTo-HtmlText {
     param($Value)
     if ($null -eq $Value) { return '' }

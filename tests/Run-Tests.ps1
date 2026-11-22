@@ -1,159 +1,140 @@
 #Requires -Version 5.1
-# Dependency-free test runner (works on Windows PowerShell 5.1 and PowerShell 7, with or without Pester).
-# Exit code = number of failed tests.
+<#
+.SYNOPSIS
+    Dependency-free test runner (Windows PowerShell 5.1 and PowerShell 7, no Pester needed).
+.DESCRIPTION
+    Loads the source files once, then dot-sources every tests\*.Tests.ps1 in this scope so the
+    test files share the helpers below. Exit code = number of failed tests.
+.EXAMPLE
+    .\tests\Run-Tests.ps1                 # everything
+    .\tests\Run-Tests.ps1 -Filter Security
+#>
+param([string]$Filter = '*')
+
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 foreach ($file in 'Common', 'Collect', 'Lab', 'Checks', 'Report') { . (Join-Path $root "src\$file.ps1") }
 
-$script:passed = 0; $script:failed = 0
+# ------------------------------------------------------------------ harness
+$script:passed = 0; $script:failed = 0; $script:failures = New-Object System.Collections.Generic.List[string]
 function Test-Case {
     param([string]$Name, [scriptblock]$Body)
     try { & $Body; $script:passed++; Write-Host "  [PASS] $Name" -ForegroundColor Green }
-    catch { $script:failed++; Write-Host "  [FAIL] $Name`n         $($_.Exception.Message)" -ForegroundColor Red }
+    catch {
+        $script:failed++; $script:failures.Add("$script:currentFile :: $Name")
+        Write-Host "  [FAIL] $Name`n         $($_.Exception.Message)" -ForegroundColor Red
+    }
 }
 function Assert-Equal { param($Expected, $Actual, [string]$What = 'value')
     if ($Expected -ne $Actual) { throw "$What : expected '$Expected', got '$Actual'" } }
 function Assert-True { param([bool]$Condition, [string]$Message) if (-not $Condition) { throw $Message } }
+function Assert-Throws {
+    param([scriptblock]$Body, [string]$Like = '*', [string]$What = 'call')
+    try { & $Body } catch {
+        if ($_.Exception.Message -notlike $Like) { throw "$What threw '$($_.Exception.Message)', expected like '$Like'" }
+        return
+    }
+    throw "$What did not throw"
+}
 
-$ref = [datetime]'2026-11-20T09:00:00Z'
-$lab = Get-Content (Join-Path $root 'lab\lab-sample.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-$findings = @(Invoke-ADAuditChecks -Snapshot $lab)
-$byId = @{}; foreach ($f in $findings) { $byId[$f.Id] = $f }
+# ------------------------------------------------------------------ fixtures
+$ref = [datetime]::SpecifyKind([datetime]'2026-11-20T09:00:00', 'Utc')
+$TestDomainSid = 'S-1-5-21-9-8-7'
+$script:nextRid = 2000
+$TempRoot = Join-Path ([IO.Path]::GetTempPath()) ("adsa-tests-" + [guid]::NewGuid().ToString('N'))
+New-Item -ItemType Directory -Path $TempRoot | Out-Null
 
-Write-Host 'Lab sample'
-Test-Case 'committed lab-sample.json matches the generator' {
-    $fresh = New-ADAuditLabSnapshot | ConvertTo-Json -Depth 8 | ConvertFrom-Json | ConvertTo-Json -Depth 8 -Compress
-    $file = $lab | ConvertTo-Json -Depth 8 -Compress
-    Assert-True ($fresh -eq $file) 'lab\lab-sample.json is stale: run tools\New-LabSample.ps1'
+function Ago { param($Days) if ($null -eq $Days) { return $null } $ref.AddDays(-[double]$Days).ToString('o') }
+
+function New-TestUser {
+    param([string]$Sam, [hashtable]$Set = @{})
+    $script:nextRid++
+    $o = [ordered]@{
+        SamAccountName = $Sam; DisplayName = $Sam; Enabled = $true; Sid = "$TestDomainSid-$script:nextRid"
+        LastLogonDate = Ago 1; WhenCreated = Ago 400; PasswordLastSet = Ago 10
+        PasswordNeverExpires = $false; PasswordNotRequired = $false; DoesNotRequirePreAuth = $false
+        ReversibleEncryption = $false; TrustedForDelegation = $false; TrustedToAuthForDelegation = $false
+        DelegatesTo = @(); AccountNotDelegated = $false; ServicePrincipalNames = @(); AdminCount = 0
+        LockedOut = $false; AccountExpires = $null; MemberOf = @(); DistinguishedName = "CN=$Sam,DC=test,DC=lab"
+    }
+    foreach ($k in $Set.Keys) { $o[$k] = $Set[$k] }
+    [pscustomobject]$o
 }
-Test-Case 'all 29 checks run without engine errors' {
-    Assert-Equal 29 $findings.Count 'finding count'
-    Assert-Equal 0 @($findings | Where-Object Severity -eq 'NotRun').Count 'NotRun findings'
+
+function New-TestComputer {
+    param([string]$Name, [hashtable]$Set = @{})
+    $o = [ordered]@{
+        Name = $Name; Enabled = $true; OperatingSystem = 'Windows Server 2022 Standard'; OperatingSystemVersion = '10.0 (20348)'
+        LastLogonDate = Ago 1; WhenCreated = Ago 400; IsDomainController = $false
+        TrustedForDelegation = $false; TrustedToAuthForDelegation = $false; DelegatesTo = @(); HasRbcd = $false
+        DistinguishedName = "CN=$Name,DC=test,DC=lab"
+    }
+    foreach ($k in $Set.Keys) { $o[$k] = $Set[$k] }
+    [pscustomobject]$o
 }
-Test-Case 'finding ids are unique' {
-    Assert-Equal $findings.Count @($findings.Id | Select-Object -Unique).Count 'unique ids'
+
+function New-TestGpo {
+    param([string]$Name, [hashtable]$Set = @{})
+    $o = [ordered]@{ Id = '{' + [guid]::NewGuid().ToString().ToUpperInvariant() + '}'; DisplayName = $Name; Flags = 0
+        UserVersion = 1; ComputerVersion = 1; EnabledLinks = 1; DisabledLinks = 0; WhenChanged = Ago 30; SysvolPresent = $true }
+    foreach ($k in $Set.Keys) { $o[$k] = $Set[$k] }
+    [pscustomobject]$o
 }
-$expected = [ordered]@{
-    'ACC-01' = 'Amber', 5;  'ACC-02' = 'Amber', 3;  'ACC-03' = 'Red', 3;    'ACC-04' = 'Red', 9
-    'ACC-05' = 'Red', 1;    'ACC-06' = 'Amber', 10; 'ACC-07' = 'Amber', 2;  'ACC-08' = 'Green', 0
-    'ACC-09' = 'Red', 1;    'ACC-10' = 'Red', 2;    'ACC-11' = 'Green', 0;  'PRV-01' = 'Amber', 18
-    'PRV-02' = 'Amber', 4;  'PRV-03' = 'Red', 7;    'PRV-04' = 'Red', 1;    'PRV-05' = 'Amber', 1
-    'PRV-06' = 'Amber', 1;  'DEL-01' = 'Red', 1;    'DEL-02' = 'Amber', 2;  'DEL-03' = 'Amber', 1
-    'CMP-01' = 'Red', 14;   'CMP-02' = 'Amber', 6;  'GPO-01' = 'Amber', 4;  'GPO-02' = 'Amber', 2
-    'GPO-03' = 'Amber', 1;  'GPO-04' = 'Red', 2;    'DOM-01' = 'Red', 2;    'DOM-02' = 'Amber', 0
-    'DOM-03' = 'Amber', 0
-}
-foreach ($id in $expected.Keys) {
-    $sev, $count = $expected[$id]
-    Test-Case "$id is $sev with $count items" {
-        Assert-Equal $sev $byId[$id].Severity "$id severity"
-        Assert-Equal $count $byId[$id].Count "$id count"
+
+# A domain with no findings. Tests add exactly the weakness they want to see.
+function New-TestSnapshot {
+    param([object[]]$Users = @(), [object[]]$Computers = @(), [object[]]$Gpos = $null, [hashtable]$Members = @{})
+    $admin = New-TestUser 'Administrator' @{ Sid = "$TestDomainSid-500"; AccountNotDelegated = $true; AdminCount = 1 }
+    $guest = New-TestUser 'Guest' @{ Sid = "$TestDomainSid-501"; Enabled = $false; LastLogonDate = $null }
+    $krbtgt = New-TestUser 'krbtgt' @{ Sid = "$TestDomainSid-502"; Enabled = $false; LastLogonDate = $null; AdminCount = 1 }
+    $allUsers = @($admin, $guest, $krbtgt) + @($Users)
+    $bySam = @{}; foreach ($u in $allUsers) { $bySam[$u.SamAccountName] = $u }
+    $defs = [ordered]@{ DomainAdmins = 512; EnterpriseAdmins = 519; SchemaAdmins = 518; Administrators = 'S-1-5-32-544'
+        AccountOperators = 'S-1-5-32-548'; ServerOperators = 'S-1-5-32-549'; PrintOperators = 'S-1-5-32-550'
+        BackupOperators = 'S-1-5-32-551'; GroupPolicyCreatorOwners = 520; KeyAdmins = 526; EnterpriseKeyAdmins = 527 }
+    $groups = foreach ($key in $defs.Keys) {
+        $names = if ($Members.ContainsKey($key)) { $Members[$key] }
+                 elseif ($key -in 'DomainAdmins', 'Administrators') { @('Administrator') } else { @() }
+        $sid = if ($defs[$key] -is [int]) { "$TestDomainSid-$($defs[$key])" } else { $defs[$key] }
+        [pscustomobject]@{ Key = $key; Name = $key; Sid = $sid; Error = $null
+            Members = @($names | ForEach-Object { [pscustomobject]@{ SamAccountName = $_; ObjectClass = 'user'; Sid = $bySam[$_].Sid } }) }
+    }
+    if ($null -eq $Gpos) { $Gpos = @(New-TestGpo 'Default Domain Policy') }
+    $dc = New-TestComputer 'DC01' @{ IsDomainController = $true; TrustedForDelegation = $true }
+    [pscustomobject]@{
+        SchemaVersion = 1; Source = 'Test'; CollectedAt = $ref.ToString('o')
+        Domain = [pscustomobject]@{ DnsRoot = 'test.lab'; NetBIOSName = 'TEST'; DomainSid = $TestDomainSid
+            DomainMode = 'Windows2016Domain'; ForestMode = 'Windows2016Forest'; ForestRoot = 'test.lab'; RecycleBinEnabled = $true
+            PasswordPolicy = [pscustomobject]@{ MinPasswordLength = 14; MaxPasswordAgeDays = 365; LockoutThreshold = 10
+                ComplexityEnabled = $true; PasswordHistoryCount = 24; ReversibleEncryptionEnabled = $false } }
+        Users = $allUsers; Computers = @($dc) + @($Computers); PrivilegedGroups = @($groups)
+        Gpos = @($Gpos); SysvolOrphans = @(); GpoError = $null; Errors = @()
     }
 }
-Test-Case 'planted accounts are found by name' {
-    Assert-True (@($byId['ACC-02'].Items.Account) -contains 'supplier.erp') 'ghost supplier.erp missing'
-    Assert-True (@($byId['ACC-03'].Items.Account) -contains 'old.admin') 'leaver old.admin missing'
-    Assert-True (@($byId['ACC-09'].Items.Account) -contains 'svc_legacy') 'AS-REP svc_legacy missing'
-    Assert-True (@($byId['DEL-01'].Items.Object) -contains 'SRV-ERP01') 'unconstrained SRV-ERP01 missing'
-    Assert-True (-not (@($byId['DEL-01'].Items.Object) -contains 'DC01')) 'domain controllers must be excluded from DEL-01'
-    Assert-True (-not (@($byId['CMP-01'].Items.Computer) -contains 'PC-OLDXP')) 'disabled computers must be excluded'
-}
-Test-Case 'nested Domain Admins members appear in the inventory' {
-    $da = @($byId['PRV-01'].Items | Where-Object Group -eq 'Domain Admins').Account
-    Assert-True ($da -contains 'hd.paula') 'nested member hd.paula missing'
+
+# Runs one check against a snapshot with explicit thresholds.
+function Invoke-Check {
+    param([string]$Name, $Snapshot, [int]$InactiveDays = 90, [int]$MaxDomainAdmins = 5)
+    $ctx = New-AuditContext -Snapshot $Snapshot -InactiveDays $InactiveDays -MaxDomainAdmins $MaxDomainAdmins -ReferenceDate $ref
+    & $Name $ctx
 }
 
-Write-Host 'Rules'
-Test-Case 'OS lifecycle classification' {
-    Assert-Equal 'Unsupported' (Get-OsSupportStatus 'Windows 7 Professional' $ref).Status 'Win7'
-    Assert-Equal 'Unsupported' (Get-OsSupportStatus 'Windows 8.1 Pro' $ref).Status 'Win8.1'
-    Assert-Equal 'Unsupported' (Get-OsSupportStatus 'Windows 10 Pro' $ref).Status 'Win10'
-    Assert-Equal 'Supported'   (Get-OsSupportStatus 'Windows 11 Enterprise' $ref).Status 'Win11'
-    Assert-Equal 'Unsupported' (Get-OsSupportStatus 'Windows Server 2012 R2 Standard' $ref).Status '2012 R2'
-    Assert-Equal 'EndingSoon'  (Get-OsSupportStatus 'Windows Server 2016 Datacenter' $ref).Status '2016'
-    Assert-Equal 'Supported'   (Get-OsSupportStatus 'Windows Server 2022 Standard' $ref).Status '2022'
-    Assert-Equal 'Unknown'     (Get-OsSupportStatus 'Ubuntu 24.04' $ref).Status 'non-Windows'
-    Assert-Equal 'Supported'   (Get-OsSupportStatus 'Windows 10 Pro' ([datetime]'2024-01-01')).Status 'Win10 before EOS'
-}
-Test-Case 'score: all green 100, all red 0, NotRun ignored' {
-    $mk = { param($s) [pscustomobject]@{ Severity = $s } }
-    Assert-Equal 100 (Get-AuditScore @((& $mk Green), (& $mk Green), (& $mk NotRun))) 'all green'
-    Assert-Equal 0 (Get-AuditScore @((& $mk Red), (& $mk Red))) 'all red'
-    Assert-Equal 50 (Get-AuditScore @((& $mk Amber), (& $mk Amber))) 'all amber'
-}
-Test-Case 'thresholds are configurable' {
-    $strict = @(Invoke-ADAuditChecks -Snapshot $lab -InactiveDays 30 -MaxDomainAdmins 20)
-    $acc01 = $strict | Where-Object Id -eq 'ACC-01'
-    Assert-True ($acc01.Count -gt $byId['ACC-01'].Count) '30-day threshold should find more inactive users'
-    Assert-Equal 'Green' ($strict | Where-Object Id -eq 'PRV-01').Severity 'PRV-01 with 20 allowed admins'
-}
-Test-Case 'a healthy domain is all green' {
-    $clean = New-ADAuditLabSnapshot | ConvertTo-Json -Depth 8 | ConvertFrom-Json
-    $clean.Users = @($clean.Users | Where-Object { $_.Sid -match '-(500|501|502)$' -or $_.SamAccountName -in 'adm.jmartin', 'lgarcia' })
-    foreach ($u in $clean.Users) {
-        $u.PasswordNeverExpires = $false; $u.ServicePrincipalNames = @(); $u.AdminCount = 0
-        $u.PasswordLastSet = $ref.AddDays(-30).ToString('o')
+function Copy-Deep { param($Object) $Object | ConvertTo-Json -Depth 10 | ConvertFrom-Json }
+
+# ------------------------------------------------------------------ run
+$testFiles = Get-ChildItem -Path $PSScriptRoot -Filter '*.Tests.ps1' | Where-Object { $_.BaseName -like "$Filter*" } | Sort-Object Name
+try {
+    foreach ($tf in $testFiles) {
+        $script:currentFile = $tf.BaseName
+        Write-Host ''
+        Write-Host $tf.BaseName -ForegroundColor Cyan
+        . $tf.FullName
     }
-    ($clean.Users | Where-Object SamAccountName -eq 'adm.jmartin').AccountNotDelegated = $true
-    ($clean.Users | Where-Object SamAccountName -eq 'Administrator').LastLogonDate = $ref.AddDays(-30).ToString('o')
-    ($clean.Users | Where-Object SamAccountName -eq 'Administrator').AccountNotDelegated = $true
-    $sids = @{}; foreach ($u in $clean.Users) { $sids[$u.SamAccountName] = $u.Sid }
-    foreach ($g in $clean.PrivilegedGroups) {
-        $keep = switch ($g.Key) { 'DomainAdmins' { 'Administrator', 'adm.jmartin' } 'Administrators' { 'Administrator', 'adm.jmartin' } default { @() } }
-        $g.Members = @($g.Members | Where-Object SamAccountName -in $keep)
-    }
-    $clean.Computers = @($clean.Computers | Where-Object { $_.Name -in 'DC01', 'SRV-FILE01', 'PC-001' })
-    $clean.Gpos = @($clean.Gpos | Where-Object { $_.DisplayName -like 'Default*' }); $clean.SysvolOrphans = @()
-    $clean.Domain.DomainMode = 'Windows2016Domain'; $clean.Domain.RecycleBinEnabled = $true
-    $clean.Domain.PasswordPolicy.MinPasswordLength = 14; $clean.Domain.PasswordPolicy.LockoutThreshold = 10
-    $notGreen = @(Invoke-ADAuditChecks -Snapshot $clean | Where-Object Severity -ne 'Green')
-    Assert-Equal 0 $notGreen.Count "non-green findings ($(($notGreen | ForEach-Object { "$($_.Id)=$($_.Severity)" }) -join ', '))"
-}
-Test-Case 'missing GPO data marks GPO checks NotRun instead of green' {
-    $copy = $lab | ConvertTo-Json -Depth 8 | ConvertFrom-Json
-    $copy.GpoError = 'access denied'
-    $gpo = @(Invoke-ADAuditChecks -Snapshot $copy | Where-Object Category -eq 'Group Policy')
-    Assert-Equal 4 @($gpo | Where-Object Severity -eq 'NotRun').Count 'NotRun GPO checks'
-}
-
-Write-Host 'Report'
-$results = New-ADAuditResult -Snapshot $lab -Findings $findings -InactiveDays 90 -MaxDomainAdmins 5
-$json = $results | ConvertTo-Json -Depth 8
-$html = ConvertTo-ADAuditHtml -Results ($json | ConvertFrom-Json)
-Test-Case 'results JSON round-trips with totals' {
-    $back = $json | ConvertFrom-Json
-    Assert-Equal 29 @($back.Findings).Count 'findings after round trip'
-    Assert-Equal 11 $back.Totals.Red 'red total'
-}
-Test-Case 'HTML is self-contained (no external resources)' {
-    Assert-True ($html -notmatch '(src|href)\s*=\s*"https?:') 'external src/href found'
-    Assert-True ($html -notmatch '@import|url\(') 'external CSS import found'
-}
-Test-Case 'HTML shows the lab badge and a recommended action for every red/amber finding' {
-    Assert-True ($html -match 'LAB DATA') 'lab badge missing'
-    $actionRows = ([regex]::Matches($html, '<td class="action">')).Count
-    Assert-Equal ($results.Totals.Red + $results.Totals.Amber) $actionRows 'action plan rows'
-}
-Test-Case 'HTML encodes directory data' {
-    $evil = $lab | ConvertTo-Json -Depth 8 | ConvertFrom-Json
-    ($evil.Users | Where-Object SamAccountName -eq 'test.user').DisplayName = '<script>alert(1)</script>'
-    $r = New-ADAuditResult -Snapshot $evil -Findings @(Invoke-ADAuditChecks -Snapshot $evil) -InactiveDays 90 -MaxDomainAdmins 5
-    $h = ConvertTo-ADAuditHtml -Results $r
-    Assert-True ($h -notmatch '<script>alert') 'raw script tag rendered'
-    Assert-True ($h -match '&lt;script&gt;alert') 'encoded value missing'
-}
-
-Write-Host 'Safety'
-Test-Case 'collector only uses read cmdlets' {
-    $code = Get-Content (Join-Path $root 'src\Collect.ps1') -Raw
-    $writes = [regex]::Matches($code, '\b(Set|New|Remove|Add|Enable|Disable|Move|Rename|Clear|Reset|Unlock|Restore)-AD\w+') | ForEach-Object Value
-    Assert-Equal 0 @($writes).Count "write cmdlets in collector: $($writes -join ', ')"
-}
-Test-Case 'DN parsing handles escaped commas' {
-    Assert-Equal 'Garcia, Ana' (Get-CnFromDn 'CN=Garcia\, Ana,OU=Users,DC=x,DC=lab') 'escaped CN'
-    Assert-Equal 'Domain Admins' (Get-CnFromDn 'CN=Domain Admins,CN=Users,DC=x,DC=lab') 'plain CN'
+} finally {
+    Remove-Item -LiteralPath $TempRoot -Recurse -Force -ErrorAction SilentlyContinue
 }
 
 Write-Host ''
+if ($script:failed) { Write-Host 'Failed:' -ForegroundColor Red; $script:failures | ForEach-Object { Write-Host "  $_" -ForegroundColor Red } }
 Write-Host "$script:passed passed, $script:failed failed" -ForegroundColor $(if ($script:failed) { 'Red' } else { 'Green' })
 exit $script:failed

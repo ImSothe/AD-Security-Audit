@@ -48,39 +48,64 @@ footer{margin-top:40px;color:var(--muted);font-size:13px;border-top:1px solid va
 @media print{body{background:#fff}.noprint{display:none}details{break-inside:avoid}.wrap{padding:0}}
 '@
 
+# The report's only script. Its SHA-256 goes into the CSP, so any change here is picked up automatically.
+$script:ReportScript = 'function toggleAll(o){document.querySelectorAll("details").forEach(function(d){d.open=o})}' +
+    'document.querySelectorAll("[data-toggle]").forEach(function(b){b.addEventListener("click",function(){toggleAll(b.getAttribute("data-toggle")==="open")})});' +
+    'window.addEventListener("beforeprint",function(){toggleAll(true)});'
+
 function ConvertTo-ADAuditHtml {
     [CmdletBinding()]
     param([Parameter(Mandatory)]$Results, [int]$MaxRowsPerFinding = 500)
 
     $e = { param($v) ConvertTo-HtmlText $v }
+    $int = { param($v) $n = 0; if ([int]::TryParse([string]$v, [ref]$n)) { $n } else { 0 } }
     $sevLabel = @{ Red = 'Red'; Amber = 'Amber'; Green = 'Green'; NotRun = 'Not run' }
-    $findings = @($Results.Findings)
+    # The results JSON is treated as untrusted input: severities are whitelisted (they end up in
+    # class attributes), numbers are re-parsed as integers and every string is HTML-encoded below.
+    $findings = @(@($Results.Findings) | ForEach-Object {
+        [pscustomobject]@{
+            Id = [string]$_.Id; Category = [string]$_.Category; Title = [string]$_.Title
+            Severity = if ([string]$_.Severity -cin 'Red', 'Amber', 'Green', 'NotRun') { [string]$_.Severity } else { 'NotRun' }
+            Summary = [string]$_.Summary; Recommendation = [string]$_.Recommendation
+            Count = & $int $_.Count; Items = @($_.Items); Columns = @($_.Columns | ForEach-Object { [string]$_ })
+        }
+    })
     $sb = New-Object System.Text.StringBuilder
     $w = { param($s) [void]$sb.Append($s) }
 
     $isLab = $Results.Source -eq 'Lab'
     $domainName = & $e $Results.Domain.DnsRoot
     $collected = (ConvertFrom-AuditDateString $Results.CollectedAt).ToLocalTime().ToString('yyyy-MM-dd HH:mm')
-    $score = [int]$Results.Score
+    $score = [math]::Max(0, [math]::Min(100, (& $int $Results.Score)))
     $scoreColor = if ($score -ge 80) { 'var(--green)' } elseif ($score -ge 50) { 'var(--amber)' } else { 'var(--red)' }
     $circ = 2 * [math]::PI * 42
     $dash = [math]::Round($circ * $score / 100, 1)
 
-    & $w "<!doctype html><html lang=""en""><head><meta charset=""utf-8""><meta name=""viewport"" content=""width=device-width,initial-scale=1"">"
+    # Content Security Policy: nothing may load from anywhere, and the only script allowed is
+    # the one below, pinned by its SHA-256 hash. Injected markup could not run code.
+    $sha = [Security.Cryptography.SHA256]::Create()
+    $scriptHash = [Convert]::ToBase64String($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($script:ReportScript)))
+    $csp = "default-src 'none'; style-src 'unsafe-inline'; img-src data:; script-src 'sha256-$scriptHash'; base-uri 'none'; form-action 'none'"
+
+    & $w "<!doctype html><html lang=""en""><head><meta charset=""utf-8"">"
+    & $w "<meta http-equiv=""Content-Security-Policy"" content=""$csp""><meta name=""referrer"" content=""no-referrer"">"
+    & $w "<meta name=""viewport"" content=""width=device-width,initial-scale=1"">"
     & $w "<title>AD security audit - $domainName</title><style>$script:ReportCss</style></head><body><div class=""wrap"">"
 
     # Header and executive summary
     $badge = if ($isLab) { '<span class="badge lab">LAB DATA - FICTIONAL DOMAIN</span>' } else { '<span class="badge live">LIVE DOMAIN</span>' }
     & $w "<div class=""head""><div><h1>Active Directory security audit</h1>"
     & $w "<div class=""muted"">$domainName ($(& $e $Results.Domain.NetBIOSName)) &middot; collected $collected &middot; $badge</div>"
-    & $w "<div class=""muted small"">Read-only audit. Thresholds: inactivity $($Results.Parameters.InactiveDays) days, Domain Admins target $($Results.Parameters.MaxDomainAdmins).</div></div>"
+    & $w "<div class=""muted small"">Read-only audit. Thresholds: inactivity $(& $int $Results.Parameters.InactiveDays) days, Domain Admins target $(& $int $Results.Parameters.MaxDomainAdmins).</div></div>"
     & $w "<div class=""score""><svg viewBox=""0 0 100 100"" role=""img"" aria-label=""Score $score of 100"">"
     & $w "<circle cx=""50"" cy=""50"" r=""42"" fill=""none"" stroke=""var(--line)"" stroke-width=""10""/>"
     & $w "<circle cx=""50"" cy=""50"" r=""42"" fill=""none"" stroke=""$scoreColor"" stroke-width=""10"" stroke-linecap=""round"" stroke-dasharray=""$dash $circ"" transform=""rotate(-90 50 50)""/>"
     & $w "<text x=""50"" y=""57"" text-anchor=""middle"" font-size=""24"" font-weight=""700"" fill=""$scoreColor"">$score</text></svg>"
     & $w "<div><div style=""font-weight:600"">Hygiene score</div><div class=""muted small"">share of checks passed;<br>red counts double</div></div></div></div>"
 
-    $t = $Results.Totals; $s = $Results.Stats
+    # Totals are recounted from the (sanitised) findings rather than trusted from the file.
+    $t = @{}; foreach ($k in 'Red', 'Amber', 'Green', 'NotRun') { $t[$k] = @($findings | Where-Object Severity -eq $k).Count }
+    $s = @{}; foreach ($k in 'Users', 'EnabledUsers', 'Computers', 'EnabledComputers', 'Gpos') { $s[$k] = & $int $Results.Stats.$k }
     & $w '<div class="cards">'
     & $w "<div class=""card red""><div class=""n"">$($t.Red)</div><div class=""l"">Red: act now</div></div>"
     & $w "<div class=""card amber""><div class=""n"">$($t.Amber)</div><div class=""l"">Amber: plan a fix</div></div>"
@@ -108,7 +133,7 @@ function ConvertTo-ADAuditHtml {
     }
 
     # Details per category
-    & $w '<h2>All checks</h2><p class="noprint"><button type="button" onclick="toggleAll(true)">Expand all</button> <button type="button" onclick="toggleAll(false)">Collapse all</button></p>'
+    & $w '<h2>All checks</h2><p class="noprint"><button type="button" data-toggle="open">Expand all</button> <button type="button" data-toggle="close">Collapse all</button></p>'
     foreach ($cat in ($findings | Select-Object -ExpandProperty Category -Unique)) {
         & $w "<h3>$(& $e $cat)</h3>"
         foreach ($f in @($findings | Where-Object Category -eq $cat)) {
@@ -145,7 +170,6 @@ function ConvertTo-ADAuditHtml {
     $generated = (ConvertFrom-AuditDateString $Results.GeneratedAt).ToLocalTime().ToString('yyyy-MM-dd HH:mm')
     & $w "<footer>Generated $generated by AD-Security-Audit $(& $e $Results.ToolVersion). The tool only reads directory data; it changed nothing in the domain. "
     & $w 'Severity is a guide for prioritising work, not a compliance verdict.</footer></div>'
-    & $w '<script>function toggleAll(o){document.querySelectorAll("details").forEach(function(d){d.open=o})}'
-    & $w 'window.addEventListener("beforeprint",function(){toggleAll(true)})</script></body></html>'
+    & $w "<script>$script:ReportScript</script></body></html>"
     return $sb.ToString()
 }

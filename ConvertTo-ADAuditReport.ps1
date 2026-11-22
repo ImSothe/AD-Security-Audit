@@ -1,4 +1,3 @@
-#Requires -Version 5.1
 <#
 .SYNOPSIS
     Converts an audit results JSON into a single self-contained HTML report.
@@ -7,9 +6,16 @@
     Presentation only: reads the JSON produced by Invoke-ADSecurityAudit.ps1 and writes HTML.
     It never touches Active Directory, so it runs on any machine.
 
+.PARAMETER InputPath
+    Results JSON written by Invoke-ADSecurityAudit.ps1 (the *-results.json file).
+
+.PARAMETER OutputPath
+    HTML file to write. Default: next to the input, with -results.json replaced by -report.html.
+
 .EXAMPLE
     .\ConvertTo-ADAuditReport.ps1 -InputPath .\reports\ad-audit-DEMOCORP-20261120-1000-results.json
 #>
+#Requires -Version 5.1
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][string]$InputPath,

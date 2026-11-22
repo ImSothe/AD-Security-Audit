@@ -37,18 +37,45 @@ function Get-WorstSeverity {
     return 'Green'
 }
 
+# Windows 11 feature updates each have their own end of servicing: Home/Pro first, Enterprise/Education a year later.
+$script:Win11Builds = @{
+    22000 = '2023-10-10', '2024-10-08'   # 21H2
+    22621 = '2024-10-08', '2025-10-14'   # 22H2
+    22631 = '2025-11-11', '2026-11-10'   # 23H2
+    26100 = '2026-10-13', '2027-10-12'   # 24H2
+    26200 = '2027-10-12', '2028-10-10'   # 25H2
+}
+# Long-term servicing editions report the same name for every release, so the build decides. Second value: IoT.
+$script:LtscBuilds = @{
+    14393 = '2026-10-13', '2026-10-13'   # Windows 10 LTSB 2016
+    17763 = '2029-01-09', '2029-01-09'   # Windows 10 LTSC 2019
+    19044 = '2027-01-12', '2032-01-13'   # Windows 10 LTSC 2021
+    26100 = '2029-10-09', '2034-10-10'   # Windows 11 LTSC 2024
+}
+
 function Get-OsSupportStatus {
-    param([string]$OperatingSystem, [datetime]$ReferenceDate)
-    foreach ($entry in $script:OsLifecycle) {
-        if ($OperatingSystem -match $entry.Pattern) {
-            if (-not $entry.End) { return [pscustomobject]@{ Status = 'Supported'; End = $null } }
-            $end = [datetime]::ParseExact($entry.End, 'yyyy-MM-dd', [Globalization.CultureInfo]::InvariantCulture)
-            $daysLeft = ($end - $ReferenceDate.Date).TotalDays
-            $status = if ($daysLeft -lt 0) { 'Unsupported' } elseif ($daysLeft -le 365) { 'EndingSoon' } else { 'Supported' }
-            return [pscustomobject]@{ Status = $status; End = $entry.End }
+    param([string]$OperatingSystem, [datetime]$ReferenceDate, [string]$Version)
+    $build = if ($Version -match '\((\d+)\)') { [int]$Matches[1] } else { 0 }
+    $end = $null; $matched = $false
+    # The current Windows 11 release is always less than a year from its end of servicing and moves on
+    # through Windows Update, so for those builds only "already unsupported" is worth reporting.
+    $warnEarly = $true
+
+    if ($OperatingSystem -match 'LTS[BC]' -and $script:LtscBuilds.ContainsKey($build)) {
+        $end = $script:LtscBuilds[$build][[int]($OperatingSystem -match 'IoT')]; $matched = $true
+    } elseif ($OperatingSystem -match 'Windows 11\b' -and $script:Win11Builds.ContainsKey($build)) {
+        $end = $script:Win11Builds[$build][[int]($OperatingSystem -match 'Enterprise|Education')]; $matched = $true; $warnEarly = $false
+    } else {
+        foreach ($entry in $script:OsLifecycle) {
+            if ($OperatingSystem -match $entry.Pattern) { $end = $entry.End; $matched = $true; break }
         }
     }
-    return [pscustomobject]@{ Status = 'Unknown'; End = $null }
+    if (-not $matched) { return [pscustomobject]@{ Status = 'Unknown'; End = $null } }
+    if (-not $end) { return [pscustomobject]@{ Status = 'Supported'; End = $null } }
+    $endDate = [datetime]::ParseExact($end, 'yyyy-MM-dd', [Globalization.CultureInfo]::InvariantCulture)
+    $daysLeft = ($endDate - $ReferenceDate.Date).TotalDays
+    $status = if ($daysLeft -lt 0) { 'Unsupported' } elseif ($warnEarly -and $daysLeft -le 365) { 'EndingSoon' } else { 'Supported' }
+    return [pscustomobject]@{ Status = $status; End = $end }
 }
 
 function New-AuditContext {
@@ -418,16 +445,16 @@ function Test-ResourceBasedDelegation {
 function Test-ObsoleteOperatingSystems {
     param($Ctx)
     $items = @($Ctx.EnabledPcs | Where-Object OperatingSystem | ForEach-Object {
-        $support = Get-OsSupportStatus $_.OperatingSystem $Ctx.Ref
+        $support = Get-OsSupportStatus $_.OperatingSystem $Ctx.Ref $_.OperatingSystemVersion
         if ($support.Status -in 'Unsupported', 'EndingSoon') {
-            [pscustomobject]@{ Computer = $_.Name; OperatingSystem = $_.OperatingSystem
+            [pscustomobject]@{ Computer = $_.Name; OperatingSystem = $_.OperatingSystem; Build = $_.OperatingSystemVersion
                 EndOfSupport = $support.End; Status = $support.Status; LastLogon = Format-AuditDate $_.LastLogonDate }
         }
     } | Sort-Object EndOfSupport, Computer)
     $unsupported = @($items | Where-Object Status -eq 'Unsupported').Count
     $sev = if ($unsupported) { 'Red' } elseif ($items.Count) { 'Amber' } else { 'Green' }
     New-AuditFinding -Id 'CMP-01' -Category 'Computers' -Title 'Operating systems out of support' -Severity $sev `
-        -Items $items -Columns Computer, OperatingSystem, EndOfSupport, Status, LastLogon `
+        -Items $items -Columns Computer, OperatingSystem, Build, EndOfSupport, Status, LastLogon `
         -Summary "$unsupported enabled computers run an operating system past its end of support; $($items.Count - $unsupported) more reach it within 12 months." `
         -Recommendation 'Upgrade or retire them. If one must stay, isolate it on its own network segment and cover it with paid Extended Security Updates where available.'
 }

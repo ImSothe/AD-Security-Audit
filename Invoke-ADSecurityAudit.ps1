@@ -1,4 +1,3 @@
-#Requires -Version 5.1
 <#
 .SYNOPSIS
     Read-only security and hygiene audit of an Active Directory domain, with an executive HTML report.
@@ -36,6 +35,9 @@
 .PARAMETER ExportSnapshot
     Also save the raw snapshot JSON. It contains account names and group memberships: treat it as confidential.
 
+.PARAMETER PassThru
+    Also return the results object to the pipeline.
+
 .EXAMPLE
     .\Invoke-ADSecurityAudit.ps1 -Lab
     Builds the sample report from the fictional domain.
@@ -44,6 +46,7 @@
     .\Invoke-ADSecurityAudit.ps1 -InactiveDays 60 -OutputDirectory C:\Audits
     Audits the current domain with a 60-day inactivity threshold.
 #>
+#Requires -Version 5.1
 [CmdletBinding(DefaultParameterSetName = 'Live')]
 param(
     [Parameter(ParameterSetName = 'Lab', Mandatory)][switch]$Lab,
@@ -83,7 +86,7 @@ if ($snapshot.SchemaVersion -ne 1) { throw "Unsupported snapshot schema version:
 
 if (-not (Test-Path -LiteralPath $OutputDirectory)) { New-Item -ItemType Directory -Path $OutputDirectory | Out-Null }
 $stamp = (ConvertFrom-AuditDateString $snapshot.CollectedAt).ToLocalTime().ToString('yyyyMMdd-HHmm')
-$base = Join-Path $OutputDirectory "ad-audit-$($snapshot.Domain.NetBIOSName)-$stamp"
+$base = Join-Path $OutputDirectory "ad-audit-$(Get-SafeFileNamePart $snapshot.Domain.NetBIOSName)-$stamp"
 
 if ($ExportSnapshot) {
     $snapshot | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath "$base-snapshot.json" -Encoding UTF8

@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/ImSothe/AD-Security-Audit/actions/workflows/ci.yml/badge.svg)](https://github.com/ImSothe/AD-Security-Audit/actions/workflows/ci.yml)
 ![PowerShell 5.1 | 7](https://img.shields.io/badge/PowerShell-5.1%20%7C%207-5391FE?logo=powershell&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-45%20passing-success)
+![Tests](https://img.shields.io/badge/tests-146%20passing-success)
+![PSScriptAnalyzer](https://img.shields.io/badge/PSScriptAnalyzer-security%20rules%20clean-success)
 ![Read-only](https://img.shields.io/badge/AD%20access-read--only-2e7d32)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -59,7 +60,7 @@ Each one is quick to find by hand if you know the right command, but it is tedio
 | DEL-02 | Constrained delegation with protocol transition | | any |
 | DEL-03 | Resource-based constrained delegation | | any |
 | **Computers** ||||
-| CMP-01 | OS past end of support (Windows 7/8.1/10, Server 2008/2012) or ending within 12 months (Server 2016) | past end of support | ending within 12 months |
+| CMP-01 | OS past end of support (Windows 7/8.1/10, old Windows 11 releases, Server 2008/2012) or ending within 12 months (Server 2016) | past end of support | ending within 12 months |
 | CMP-02 | Computers inactive for more than 90 days | | any |
 | **Group Policy** ||||
 | GPO-01 | GPOs not linked anywhere (or only through disabled links) | | any |
@@ -147,36 +148,73 @@ Each run writes two files:
 
 - **Language-independent.** Privileged groups are found by their well-known SID (`-512`, `-519`, `S-1-5-32-544`...), not by name, so localized domains work. For example, Spanish domains call Domain Admins *Admins. del dominio*.
 - **No GroupPolicy module needed.** GPOs are read from their AD containers and `gPLink` attributes. Link state and version numbers are decoded directly, and SYSVOL is checked with `Test-Path`.
+- **OS support by build, not only by name.**
+  - **Windows 11:** each release has its own end date, and Enterprise/Education get a year more than Home/Pro, so the build number (`OperatingSystemVersion`) decides. Only releases already out of support are flagged, because the current one always ends within a year and moves on through Windows Update.
+  - **Windows 10 LTSC:** AD reports the same name for every LTSC release, so the build picks the right date (2019 runs until 2029, for example). These machines are not flagged together with the rest of Windows 10.
 - **`LastLogonDate`, not `LastLogon`.** `LastLogonDate` is replicated, so asking one DC is enough. It can lag by up to 14 days, which does not matter for a 90-day threshold.
 - **Fails visibly.** If a data source cannot be read, its checks show *Not run* in grey instead of a misleading green.
-- **HTML-encoded output.** Every value taken from the directory is encoded before it reaches the report, so a crafted display name cannot inject script into it. A test covers this.
+## Security
+
+An audit tool runs with access to sensitive data and its output travels by email, so it gets the same scrutiny as the domain it audits.
+
+| Guarantee | How it is enforced | Tested by |
+|---|---|---|
+| **Read-only** | The collector only calls `Get-*` AD cmdlets. | The PowerShell parser lists every command the collector invokes, and a fake AD module records each call at run time; both fail on anything that is not `Get-*`. |
+| **No secrets collected** | Every property is mapped explicitly; nothing is copied wholesale. | The fake AD returns LAPS passwords and hashes; the test proves they never reach the snapshot. Another test fails if the collector requests a secret attribute (`unicodePwd`, `ms-Mcs-AdmPwd`, `msLAPS-*`, `msDS-ManagedPassword`, BitLocker keys). |
+| **Credentials never stored** | `-Credential` is only passed to AD cmdlets. | The snapshot JSON is checked for the user name and password of the credential used. |
+| **No script injection in the report** | Every value is HTML-encoded. A strict Content Security Policy (`default-src 'none'`) allows only the report's own script, pinned by its SHA-256 hash, and there are no inline event handlers. | An XSS payload is placed in every directory string field (names, groups, SPNs, GPOs, OS, domain); the report must render it as text and contain exactly one script. The CSP hash is recomputed and compared. |
+| **Tampered results files are harmless** | The report treats the results JSON as untrusted: severities are whitelisted, numbers re-parsed, totals recounted. | Injection through severity, counts, totals, score, columns and version. |
+| **No path traversal** | Output file names are built from a sanitised NetBIOS name. | A snapshot with `..\..\` in the domain name must write only inside the output folder. |
+| **No network or dynamic code** | No downloads, web requests, remoting, `Invoke-Expression`, `Add-Type` or `Start-Process`. Files are written only by the entry script. | Parser-based checks over every shipped script. |
+| **Static analysis** | PSScriptAnalyzer security rules and all Error-level rules. | Separate CI job. |
+| **Repository hygiene** | Real output is git-ignored. | Tests check that tracked files contain no e-mail addresses, user profile paths, private keys or secret-looking values, and that report and snapshot files are ignored. |
+
+The tests were themselves checked by **mutation testing**: 8 realistic bugs were injected one at a time, and every one made the suite fail. The bugs were:
+
+- HTML encoding removed
+- severity whitelist removed
+- a write cmdlet added to the collector
+- a LAPS attribute requested
+- an off-by-one in the inactivity threshold
+- domain controllers no longer excluded from the delegation check
+- the output file name no longer sanitised
+- the CSP removed
 
 ## Lab mode
 
-`lab/lab-sample.json` describes *Demo Corp* (`demo-corp.lab`), a fictional company with 64 users, 43 computers and 13 GPOs. It has the problems you find in real small businesses:
+`lab/lab-sample.json` describes *Demo Corp* (`demo-corp.lab`), a fictional company with 64 users, 44 computers and 13 GPOs. It has the problems you find in real small businesses:
 
 - an external IT supplier that is still a Domain Admin after 214 days without logging on
 - a former admin who was disabled but is still in Domain Admins
 - service accounts with passwords several years old, one of them in Domain Admins with an SPN
-- Windows 7 and Windows 10 PCs
+- Windows 7, Windows 10 and outdated Windows 11 PCs
 - a 2012 R2 server with unconstrained delegation
 - a "GPO test" that nobody deleted
+
+It also has things that must *not* be flagged, such as a Windows 10 LTSC kiosk that is still supported and domain controllers with their normal delegation.
 
 All names are invented. `tools/New-LabSample.ps1` builds the file from `src/Lab.ps1` with fixed values, so every run produces the same file, and refreshes the sample report. A test fails if the committed file no longer matches the generator.
 
 ## Tested
 
-- **45 automated tests** ([tests/Run-Tests.ps1](tests/Run-Tests.ps1)) with no external dependencies. Pester is not needed. CI runs them on Windows PowerShell 5.1 and PowerShell 7, then builds the lab report end to end. They cover:
-  - the exact result of every check on the lab domain
-  - OS lifecycle dates
-  - scoring and configurable thresholds
-  - a healthy domain coming out all green
-  - *Not run* handling
-  - HTML encoding
-  - the report having no external resources
-  - the collector containing no AD write cmdlets
+**146 automated tests** with no external dependencies (Pester is not needed). CI runs them on Windows PowerShell 5.1 and PowerShell 7, builds the lab report end to end and runs PSScriptAnalyzer.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tests\Run-Tests.ps1                    # everything
+powershell -ExecutionPolicy Bypass -File .\tests\Run-Tests.ps1 -Filter Security   # one area
+```
+
+| File | Tests | What it covers |
+|---|---|---|
+| [Checks.Tests.ps1](tests/Checks.Tests.ps1) | 52 | Every check on small hand-built domains. Covers thresholds and their exact boundaries (90/91 days, 180/181 and 365/366 for krbtgt, 5/6/10/11 Domain Admins), exclusions (disabled accounts, DCs, krbtgt) and renamed built-in accounts found by RID. Also covers OS lifecycle by name, build and edition, password policy rules, functional levels, scoring and *Not run* handling. A healthy domain must come out all green, and checks must not modify their input. |
+| [Lab.Tests.ps1](tests/Lab.Tests.ps1) | 39 | Exact severity and count of all 29 checks on the lab domain, planted weaknesses found by name, and things that must not be flagged. Also checks that the committed lab file matches its generator. |
+| [Security.Tests.ps1](tests/Security.Tests.ps1) | 18 | See [Security](#security). |
+| [Collect.Tests.ps1](tests/Collect.Tests.ps1) | 15 | The collector against a fake AD module: field mapping, DC and RODC detection, localized group names, recursive membership, forest-root groups, GPO link and version decoding, SYSVOL orphans, partial failures, and `-Server`/`-Credential` reaching every call. |
+| [Report.Tests.ps1](tests/Report.Tests.ps1) | 13 | Report structure: anchors, action-plan order, open red sections, balanced tags, truncation, warnings, UTF-8 without BOM, and accented names. |
+| [Cli.Tests.ps1](tests/Cli.Tests.ps1) | 9 | The scripts end to end: output files, `-PassThru`, thresholds, parameter validation, full help, clean parsing and ASCII-only sources (Windows PowerShell 5.1 misreads UTF-8 without BOM). |
+
 - **Lab and snapshot modes** were run end to end, and I reviewed the report in a browser.
-- **Not yet run against a real domain.** The collector uses standard `ActiveDirectory` module cmdlets and properties, but I have not run this version against a live domain. If something fails on yours, please open an issue with the error message. The checks themselves are covered by the tests above.
+- **Not yet run against a real domain.** The collector is tested against a fake AD module built from the documented cmdlet output, but this version has not run against a live domain. If something fails on yours, please open an issue with the error message.
 
 ## Good to know
 

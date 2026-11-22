@@ -28,13 +28,17 @@ function Get-ADAuditSnapshot {
     [CmdletBinding()]
     param(
         [string]$Server,
-        [pscredential]$Credential
+        [pscredential]$Credential,
+        # Override of \\<domain>\SYSVOL\<domain>\Policies, used by the tests.
+        [string]$PoliciesPath
     )
 
-    if (-not (Get-Module -ListAvailable -Name ActiveDirectory)) {
-        throw 'The ActiveDirectory module (RSAT) is not installed. Install RSAT, run on a domain controller, or use -Lab.'
+    if (-not (Get-Command Get-ADUser -ErrorAction SilentlyContinue)) {
+        if (-not (Get-Module -ListAvailable -Name ActiveDirectory)) {
+            throw 'The ActiveDirectory module (RSAT) is not installed. Install RSAT, run on a domain controller, or use -Lab.'
+        }
+        Import-Module ActiveDirectory -ErrorAction Stop -Verbose:$false
     }
-    Import-Module ActiveDirectory -ErrorAction Stop -Verbose:$false
 
     $ad = @{}
     if ($Server)     { $ad.Server = $Server }
@@ -136,7 +140,7 @@ function Get-ADAuditSnapshot {
     $gpos = @(); $sysvolOrphans = @(); $gpoError = $null
     try {
         $gpoInfo = Get-ADAuditGpoData -Ad $ad -DomainDN $domain.DistinguishedName -DnsRoot $domain.DNSRoot `
-            -ConfigurationNC $forest.PartitionsContainer.Replace('CN=Partitions,', '')
+            -ConfigurationNC $forest.PartitionsContainer.Replace('CN=Partitions,', '') -PoliciesPath $PoliciesPath
         $gpos = $gpoInfo.Gpos
         $sysvolOrphans = $gpoInfo.SysvolOrphans
     } catch { $gpoError = $_.Exception.Message }
@@ -174,8 +178,17 @@ function Get-ADAuditSnapshot {
 
 # GPOs are read straight from their AD containers (no GroupPolicy module needed).
 # gPLink format: [LDAP://cn={GUID},cn=policies,cn=system,DC=x;FLAG] where FLAG 1 = link disabled.
+function ConvertFrom-GpLink {
+    # Option bits: 1 = link disabled, 2 = enforced. Case-insensitive, as AD stores either.
+    param([string]$GpLink)
+    foreach ($m in [regex]::Matches([string]$GpLink, '\[LDAP://cn=(\{[0-9a-f-]{36}\})[^;\]]*;(\d+)\]', 'IgnoreCase')) {
+        $flags = [int]$m.Groups[2].Value
+        [pscustomobject]@{ Id = $m.Groups[1].Value.ToUpperInvariant(); Disabled = ($flags -band 1) -eq 1; Enforced = ($flags -band 2) -eq 2 }
+    }
+}
+
 function Get-ADAuditGpoData {
-    param([hashtable]$Ad, [string]$DomainDN, [string]$DnsRoot, [string]$ConfigurationNC)
+    param([hashtable]$Ad, [string]$DomainDN, [string]$DnsRoot, [string]$ConfigurationNC, [string]$PoliciesPath)
 
     $enabledLinks = @{}; $disabledLinks = @{}
     $linkHolders = @(Get-ADObject @Ad -SearchBase $DomainDN -LDAPFilter '(gPLink=*)' -Properties gPLink)
@@ -183,10 +196,9 @@ function Get-ADAuditGpoData {
         $linkHolders += @(Get-ADObject @Ad -SearchBase "CN=Sites,$ConfigurationNC" -LDAPFilter '(gPLink=*)' -Properties gPLink)
     } catch { Write-Verbose "Site links not read: $($_.Exception.Message)" }
     foreach ($holder in $linkHolders) {
-        foreach ($m in [regex]::Matches([string]$holder.gPLink, '\[LDAP://cn=(\{[0-9a-fA-F-]{36}\})[^;]*;(\d+)\]')) {
-            $guid = $m.Groups[1].Value.ToUpperInvariant()
-            $table = if (([int]$m.Groups[2].Value -band 1) -eq 1) { $disabledLinks } else { $enabledLinks }
-            $table[$guid] = 1 + [int]$table[$guid]
+        foreach ($link in ConvertFrom-GpLink $holder.gPLink) {
+            $table = if ($link.Disabled) { $disabledLinks } else { $enabledLinks }
+            $table[$link.Id] = 1 + [int]$table[$link.Id]
         }
     }
 
@@ -209,10 +221,10 @@ function Get-ADAuditGpoData {
     }
 
     $known = @($gpos | ForEach-Object Id)
-    $policiesPath = "\\$DnsRoot\SYSVOL\$DnsRoot\Policies"
+    if (-not $PoliciesPath) { $PoliciesPath = "\\$DnsRoot\SYSVOL\$DnsRoot\Policies" }
     $orphans = @()
-    if (Test-Path -LiteralPath $policiesPath) {
-        $orphans = @(Get-ChildItem -LiteralPath $policiesPath -Directory |
+    if (Test-Path -LiteralPath $PoliciesPath) {
+        $orphans = @(Get-ChildItem -LiteralPath $PoliciesPath -Directory |
             Where-Object { $_.Name -match '^\{[0-9a-fA-F-]{36}\}$' -and $_.Name.ToUpperInvariant() -notin $known } |
             ForEach-Object { $_.Name.ToUpperInvariant() })
     }

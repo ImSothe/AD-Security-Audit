@@ -24,3 +24,33 @@ jobs:
         run: ./tests/Run-Tests.ps1
       - name: Build the lab report end to end
         run: ./Invoke-ADSecurityAudit.ps1 -Lab -OutputDirectory ./out
+
+  analyze:
+    name: PSScriptAnalyzer (security rules)
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PSScriptAnalyzer
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSScriptAnalyzer -RequiredVersion 1.23.0 -Scope CurrentUser -Force
+      - name: Analyze
+        run: |
+          $security = 'PSAvoidUsingInvokeExpression', 'PSAvoidUsingPlainTextForPassword', 'PSAvoidUsingConvertToSecureStringWithPlainText',
+            'PSUsePSCredentialType', 'PSAvoidUsingUsernameAndPasswordParams', 'PSAvoidUsingComputerNameHardcoded',
+            'PSAvoidUsingAllowUnencryptedAuthentication', 'PSAvoidUsingBrokenHashAlgorithms', 'PSAvoidGlobalVars',
+            'PSAvoidUsingWMICmdlet', 'PSAvoidUsingDeprecatedManifestFields'
+          # Shipped code: security rules plus anything rated Error.
+          $shipped = Get-ChildItem -Recurse -Include *.ps1 | Where-Object FullName -notmatch '[\\/]tests[\\/]'
+          $issues = @($shipped | ForEach-Object { Invoke-ScriptAnalyzer -Path $_.FullName -IncludeRule $security }) +
+                    @($shipped | ForEach-Object { Invoke-ScriptAnalyzer -Path $_.FullName -Severity Error })
+          # Tests deliberately build a throw-away credential from a fake literal to test that credentials are not
+          # stored; that one rule is excluded there and nothing else.
+          $issues += @(Get-ChildItem tests -Filter *.ps1 | ForEach-Object {
+            Invoke-ScriptAnalyzer -Path $_.FullName -Severity Error -ExcludeRule PSAvoidUsingConvertToSecureStringWithPlainText })
+          $issues | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize -Wrap
+          if ($issues.Count) { Write-Error "$($issues.Count) analyzer finding(s)"; exit 1 }
+          'No findings.'
