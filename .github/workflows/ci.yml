@@ -19,7 +19,7 @@ jobs:
       run:
         shell: ${{ matrix.shell }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run test suite
         run: ./tests/Run-Tests.ps1
       - name: Build the lab report end to end
@@ -32,7 +32,7 @@ jobs:
       run:
         shell: pwsh
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install PSScriptAnalyzer
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
