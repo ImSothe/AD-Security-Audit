@@ -154,6 +154,7 @@ Each run writes two files:
   - **Windows 10 LTSC:** AD reports the same name for every LTSC release, so the build picks the right date (2019 runs until 2029, for example). These machines are not flagged together with the rest of Windows 10.
 - **`LastLogonDate`, not `LastLogon`.** `LastLogonDate` is replicated, so asking one DC is enough. It can lag by up to 14 days, which does not matter for a 90-day threshold.
 - **Fails visibly.** If a data source cannot be read, its checks show *Not run* in grey instead of a misleading green.
+
 ## Security
 
 An audit tool runs with access to sensitive data and its output travels by email, so it gets the same scrutiny as the domain it audits.
@@ -200,7 +201,7 @@ All names are invented. `tools/New-LabSample.ps1` builds the file from `src/Lab.
 
 The tool has been run against a live production domain at a small company: a few dozen users and computers and a handful of GPOs. The company, domain, account and computer names, and the number of affected objects, stay private. Only the shape of the results is shown here.
 
-- **All 29 checks ran.** None was left as *Not run*, so the collector read users, computers, privileged groups, GPO containers, SYSVOL and the domain policy without errors.
+- **All 29 checks ran.** None was left as *Not run*, so every data source the checks need was read: users, computers, privileged groups, GPO containers, SYSVOL and the domain policy.
 - **Nothing was changed** in the directory. The run used the default thresholds (90 days of inactivity, 5 Domain Admins).
 - **Result: 5 red, 8 amber and 16 green checks, hygiene score 69/100.**
 
@@ -215,7 +216,7 @@ The tool has been run against a live production domain at a small company: a few
 | ACC-03 | Disabled accounts still in security groups | Amber |
 | ACC-06 | Passwords older than one year | Amber |
 | PRV-02 | Members in Operators groups that should be empty | Amber |
-| PRV-03 | A privileged account with weak hygiene | Amber |
+| PRV-03 | Privileged accounts with weak hygiene | Amber |
 | PRV-05 | Built-in Administrator password older than a year | Amber |
 | CMP-02 | Computers inactive for more than 90 days | Amber |
 | DOM-03 | AD Recycle Bin disabled | Amber |
@@ -224,11 +225,11 @@ The green side matters too: Domain Admins within the target, Guest disabled, no 
 
 The problems are the ones the lab domain was designed around: accounts nobody uses or removed properly, passwords that never change, and old operating systems nobody has replaced. Building the lab from what I see as an IT technician paid off, because the real domain looked like it.
 
-The report was then turned into a roadmap for management. The rule was **no disruption on the shop floor or in the office**: shared accounts and applications tied to specific users exist, so nothing is changed abruptly. The roadmap has three blocks, ordered by impact on staff:
+The report was then turned into a roadmap for management. The rule was **no disruption for staff**: shared accounts and applications tied to specific users exist, so nothing is changed abruptly. The roadmap has three blocks, ordered by impact on staff:
 
-1. **Zero-risk internal fixes** (DOM-03, ACC-03, PRV-02, PRV-05, PRV-04): enable the Recycle Bin, clean up the incomplete offboarding, review the Operators group members, lock away the built-in Administrator as an emergency account and rotate krbtgt twice with a wait between resets. Nobody notices any of it.
+1. **Zero-risk internal fixes** (DOM-03, ACC-03, PRV-02, PRV-05, PRV-04): enable the Recycle Bin, clean up incomplete offboarding, review the Operators group members, lock away the built-in Administrator as an emergency account and rotate krbtgt twice with a wait between resets. Nobody notices any of it.
 2. **Joint review of unused accounts** (ACC-01, ACC-02, CMP-02): a short meeting with management and HR. Only what they confirm is not used by anyone, including shared accounts, gets disabled.
-3. **Medium-term planning** (CMP-01, DOM-01, ACC-04, ACC-06): a budget and calendar to replace or network-isolate the unsupported computers, and a password policy that treats personal office accounts differently from shop-floor and service accounts.
+3. **Medium-term planning** (CMP-01, DOM-01, ACC-04, ACC-06): a budget and calendar to replace or network-isolate the unsupported computers, and a password policy that treats personal accounts differently from shared and service accounts.
 
 After the first two blocks, a second read-only run will measure the change in score.
 
