@@ -5,11 +5,12 @@
 ![Tests](https://img.shields.io/badge/tests-146%20passing-success)
 ![PSScriptAnalyzer](https://img.shields.io/badge/PSScriptAnalyzer-security%20rules%20clean-success)
 ![Read-only](https://img.shields.io/badge/AD%20access-read--only-2e7d32)
+![Production](https://img.shields.io/badge/tested%20on-production%20domain-2e7d32)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 A read-only security and hygiene audit for an Active Directory domain, in PowerShell. It reads the directory, runs 29 checks and writes **one HTML report you can email to management**. Each check gets a traffic light (red, amber or green), and every problem comes with the action that fixes it.
 
-> **Built with AI assistance (Claude Code).** I chose what to audit based on what I see as an IT technician, reviewed every check and its thresholds, and tested the tool end to end against the lab domain. The tool never writes anything. It only uses `Get-*` cmdlets, and a test fails the build if a write cmdlet appears in the collector.
+> **Built with AI assistance (Claude Code).** I chose what to audit based on what I see as an IT technician, reviewed every check and its thresholds, and tested the tool end to end against the lab domain and [a real production domain](#real-world-run). The tool never writes anything. It only uses `Get-*` cmdlets, and a test fails the build if a write cmdlet appears in the collector.
 
 **Try it without Active Directory:** run `.\Invoke-ADSecurityAudit.ps1 -Lab` on any Windows PC, or download [docs/sample-report.html](docs/sample-report.html) and open it in a browser.
 
@@ -153,6 +154,7 @@ Each run writes two files:
   - **Windows 10 LTSC:** AD reports the same name for every LTSC release, so the build picks the right date (2019 runs until 2029, for example). These machines are not flagged together with the rest of Windows 10.
 - **`LastLogonDate`, not `LastLogon`.** `LastLogonDate` is replicated, so asking one DC is enough. It can lag by up to 14 days, which does not matter for a 90-day threshold.
 - **Fails visibly.** If a data source cannot be read, its checks show *Not run* in grey instead of a misleading green.
+
 ## Security
 
 An audit tool runs with access to sensitive data and its output travels by email, so it gets the same scrutiny as the domain it audits.
@@ -195,6 +197,12 @@ It also has things that must *not* be flagged, such as a Windows 10 LTSC kiosk t
 
 All names are invented. `tools/New-LabSample.ps1` builds the file from `src/Lab.ps1` with fixed values, so every run produces the same file, and refreshes the sample report. A test fails if the committed file no longer matches the generator.
 
+## Real-world run
+
+The tool has been run read-only against a live production domain at a small company. All 29 checks completed and none was left as *Not run*, so every data source the checks need was read (users, computers, privileged groups, GPO containers, SYSVOL and the domain policy), and nothing was changed in the directory.
+
+The report was turned into an improvement plan for management, with one rule: **no disruption for staff**. The findings of that run stay private, because a list of a real company's weaknesses is exactly what should never be published.
+
 ## Tested
 
 **146 automated tests** with no external dependencies (Pester is not needed). CI runs them on Windows PowerShell 5.1 and PowerShell 7, builds the lab report end to end and runs PSScriptAnalyzer.
@@ -214,7 +222,7 @@ powershell -ExecutionPolicy Bypass -File .\tests\Run-Tests.ps1 -Filter Security 
 | [Cli.Tests.ps1](tests/Cli.Tests.ps1) | 9 | The scripts end to end: output files, `-PassThru`, thresholds, parameter validation, full help, clean parsing and ASCII-only sources (Windows PowerShell 5.1 misreads UTF-8 without BOM). |
 
 - **Lab and snapshot modes** were run end to end, and I reviewed the report in a browser.
-- **Not yet run against a real domain.** The collector is tested against a fake AD module built from the documented cmdlet output, but this version has not run against a live domain. If something fails on yours, please open an issue with the error message.
+- **Run against a real production domain.** All 29 checks completed and none was left as *Not run*; see [Real-world run](#real-world-run). The collector tests still use a fake AD module, so CI does not need a domain. If something fails on yours, please open an issue with the error message.
 
 ## Good to know
 
