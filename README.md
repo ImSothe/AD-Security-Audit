@@ -214,15 +214,23 @@ The tool has been run against a live production domain at a small company: a few
 | ACC-02 | Ghost accounts: enabled but never used | Amber |
 | ACC-03 | Disabled accounts still in security groups | Amber |
 | ACC-06 | Passwords older than one year | Amber |
+| PRV-02 | Members in Operators groups that should be empty | Amber |
+| PRV-03 | A privileged account with weak hygiene | Amber |
+| PRV-05 | Built-in Administrator password older than a year | Amber |
+| CMP-02 | Computers inactive for more than 90 days | Amber |
+| DOM-03 | AD Recycle Bin disabled | Amber |
 
-Five more checks came out amber. The problems are the ones the lab domain was designed around: accounts nobody uses or removed properly, passwords that never change, and old operating systems nobody has replaced. Building the lab from what I see as an IT technician paid off, because the real domain looked like it.
+The green side matters too: Domain Admins within the target, Guest disabled, no accounts without a required password, no AS-REP roasting or Kerberoastable accounts, no dangerous delegation, and clean GPOs.
 
-The report was then turned into a remediation plan for management, in four phases ordered from least to most disruptive:
+The problems are the ones the lab domain was designed around: accounts nobody uses or removed properly, passwords that never change, and old operating systems nobody has replaced. Building the lab from what I see as an IT technician paid off, because the real domain looked like it.
 
-1. **Account clean-up** (ACC-01, ACC-02, ACC-03): review inactive and unused accounts with HR, disable what is no longer needed and finish the incomplete offboarding.
-2. **Passwords and Kerberos** (DOM-01, PRV-04, ACC-04, ACC-06): strengthen the default policy, rotate krbtgt twice with a wait between resets, and remove *password never expires* from personal accounts after setting service accounts aside.
-3. **Operating systems** (CMP-01): plan upgrades or replacements, and isolate on the network any machine that cannot be migrated yet.
-4. **Second run**: audit again in read-only mode and compare the score with the first one.
+The report was then turned into a roadmap for management. The rule was **no disruption on the shop floor or in the office**: shared accounts and applications tied to specific users exist, so nothing is changed abruptly. The roadmap has three blocks, ordered by impact on staff:
+
+1. **Zero-risk internal fixes** (DOM-03, ACC-03, PRV-02, PRV-05, PRV-04): enable the Recycle Bin, clean up the incomplete offboarding, review the Operators group members, lock away the built-in Administrator as an emergency account and rotate krbtgt twice with a wait between resets. Nobody notices any of it.
+2. **Joint review of unused accounts** (ACC-01, ACC-02, CMP-02): a short meeting with management and HR. Only what they confirm is not used by anyone, including shared accounts, gets disabled.
+3. **Medium-term planning** (CMP-01, DOM-01, ACC-04, ACC-06): a budget and calendar to replace or network-isolate the unsupported computers, and a password policy that treats personal office accounts differently from shop-floor and service accounts.
+
+After the first two blocks, a second read-only run will measure the change in score.
 
 ## Tested
 
