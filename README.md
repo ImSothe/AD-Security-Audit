@@ -5,11 +5,12 @@
 ![Tests](https://img.shields.io/badge/tests-146%20passing-success)
 ![PSScriptAnalyzer](https://img.shields.io/badge/PSScriptAnalyzer-security%20rules%20clean-success)
 ![Read-only](https://img.shields.io/badge/AD%20access-read--only-2e7d32)
+![Production](https://img.shields.io/badge/tested%20on-production%20domain-2e7d32)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 A read-only security and hygiene audit for an Active Directory domain, in PowerShell. It reads the directory, runs 29 checks and writes **one HTML report you can email to management**. Each check gets a traffic light (red, amber or green), and every problem comes with the action that fixes it.
 
-> **Built with AI assistance (Claude Code).** I chose what to audit based on what I see as an IT technician, reviewed every check and its thresholds, and tested the tool end to end against the lab domain. The tool never writes anything. It only uses `Get-*` cmdlets, and a test fails the build if a write cmdlet appears in the collector.
+> **Built with AI assistance (Claude Code).** I chose what to audit based on what I see as an IT technician, reviewed every check and its thresholds, and tested the tool end to end against the lab domain and [a real production domain](#real-world-run). The tool never writes anything. It only uses `Get-*` cmdlets, and a test fails the build if a write cmdlet appears in the collector.
 
 **Try it without Active Directory:** run `.\Invoke-ADSecurityAudit.ps1 -Lab` on any Windows PC, or download [docs/sample-report.html](docs/sample-report.html) and open it in a browser.
 
@@ -195,6 +196,34 @@ It also has things that must *not* be flagged, such as a Windows 10 LTSC kiosk t
 
 All names are invented. `tools/New-LabSample.ps1` builds the file from `src/Lab.ps1` with fixed values, so every run produces the same file, and refreshes the sample report. A test fails if the committed file no longer matches the generator.
 
+## Real-world run
+
+The tool has been run against a live production domain at a small company: a few dozen users and computers and a handful of GPOs. The company, domain, account and computer names, and the number of affected objects, stay private. Only the shape of the results is shown here.
+
+- **All 29 checks ran.** None was left as *Not run*, so the collector read users, computers, privileged groups, GPO containers, SYSVOL and the domain policy without errors.
+- **Nothing was changed** in the directory. The run used the default thresholds (90 days of inactivity, 5 Domain Admins).
+- **Result: 5 red, 8 amber and 16 green checks, hygiene score 69/100.**
+
+| ID | What was found | Result |
+|---|---|---|
+| ACC-01 | Enabled users inactive for more than 90 days | Red |
+| ACC-04 | Passwords set to never expire | Red |
+| CMP-01 | Computers running an OS past end of support | Red |
+| DOM-01 | Default domain password policy below the minimum | Red |
+| PRV-04 | krbtgt password not rotated for over a year | Red |
+| ACC-02 | Ghost accounts: enabled but never used | Amber |
+| ACC-03 | Disabled accounts still in security groups | Amber |
+| ACC-06 | Passwords older than one year | Amber |
+
+Five more checks came out amber. The problems are the ones the lab domain was designed around: accounts nobody uses or removed properly, passwords that never change, and old operating systems nobody has replaced. Building the lab from what I see as an IT technician paid off, because the real domain looked like it.
+
+The report was then turned into a remediation plan for management, in four phases ordered from least to most disruptive:
+
+1. **Account clean-up** (ACC-01, ACC-02, ACC-03): review inactive and unused accounts with HR, disable what is no longer needed and finish the incomplete offboarding.
+2. **Passwords and Kerberos** (DOM-01, PRV-04, ACC-04, ACC-06): strengthen the default policy, rotate krbtgt twice with a wait between resets, and remove *password never expires* from personal accounts after setting service accounts aside.
+3. **Operating systems** (CMP-01): plan upgrades or replacements, and isolate on the network any machine that cannot be migrated yet.
+4. **Second run**: audit again in read-only mode and compare the score with the first one.
+
 ## Tested
 
 **146 automated tests** with no external dependencies (Pester is not needed). CI runs them on Windows PowerShell 5.1 and PowerShell 7, builds the lab report end to end and runs PSScriptAnalyzer.
@@ -214,7 +243,7 @@ powershell -ExecutionPolicy Bypass -File .\tests\Run-Tests.ps1 -Filter Security 
 | [Cli.Tests.ps1](tests/Cli.Tests.ps1) | 9 | The scripts end to end: output files, `-PassThru`, thresholds, parameter validation, full help, clean parsing and ASCII-only sources (Windows PowerShell 5.1 misreads UTF-8 without BOM). |
 
 - **Lab and snapshot modes** were run end to end, and I reviewed the report in a browser.
-- **Not yet run against a real domain.** The collector is tested against a fake AD module built from the documented cmdlet output, but this version has not run against a live domain. If something fails on yours, please open an issue with the error message.
+- **Run against a real production domain.** All 29 checks completed and none was left as *Not run*; see [Real-world run](#real-world-run). The collector tests still use a fake AD module, so CI does not need a domain. If something fails on yours, please open an issue with the error message.
 
 ## Good to know
 
